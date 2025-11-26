@@ -59,7 +59,7 @@ module.exports = [
       'space-before-function-paren': ['error', {
         'anonymous': 'always',
         'named': 'never',
-        'asyncArrow': 'always'
+        'asyncArrow': 'always',
       }],
       'space-before-blocks': ['error', 'always'],
       'padded-blocks': ['error', 'never'],
@@ -80,7 +80,7 @@ module.exports = [
         'objects': 'always-multiline',
         'imports': 'always-multiline',
         'exports': 'always-multiline',
-        'functions': 'never'
+        'functions': 'never',
       }],
       'comma-style': ['error', 'last'],
       'semi': ['error', 'always'],
@@ -95,12 +95,6 @@ module.exports = [
       'max-depth': ['error', 4],
       'no-unneeded-ternary': 'error',
       'no-nested-ternary': 'warn',
-    },
-  },
-  {
-    files: ['**/*.md'],
-    rules: {
-      'no-trailing-spaces': 'off',
     },
   },
 ];
