@@ -1,0 +1,107 @@
+const typescript = require('@typescript-eslint/eslint-plugin');
+const typescriptParser = require('@typescript-eslint/parser');
+
+module.exports = [
+  {
+    ignores: ['dist/**', 'node_modules/**', 'coverage/**', 'playwright-report/**', 'test-results/**'],
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescript,
+    },
+    rules: {
+      ...typescript.configs.recommended.rules,
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-extra-non-null-assertion': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.cjs'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'indent': ['error', 2, { 'SwitchCase': 1 }],
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 0 }],
+      'no-unexpected-multiline': ['error'],
+      'no-irregular-whitespace': 'error',
+      'no-trailing-spaces': 'error',
+      'eol-last': ['error', 'always'],
+      'func-call-spacing': ['error', 'never'],
+      'space-before-function-paren': ['error', {
+        'anonymous': 'always',
+        'named': 'never',
+        'asyncArrow': 'always'
+      }],
+      'space-before-blocks': ['error', 'always'],
+      'padded-blocks': ['error', 'never'],
+      'array-bracket-spacing': ['error', 'never'],
+      'object-curly-spacing': ['error', 'always'],
+      'template-curly-spacing': ['error', 'never'],
+      'brace-style': ['error', '1tbs', { 'allowSingleLine': true }],
+      'curly': ['error', 'all'],
+      'keyword-spacing': ['error', { 'before': true, 'after': true }],
+      'comma-spacing': ['error', { 'before': false, 'after': true }],
+      'space-unary-ops': ['error', { words: true, nonwords: false }],
+      'space-infix-ops': ['error'],
+      'key-spacing': ['error', { 'beforeColon': false, 'afterColon': true, 'mode': 'strict' }],
+      'arrow-parens': ['error', 'always'],
+      'arrow-spacing': ['error', { 'before': true, 'after': true }],
+      'comma-dangle': ['error', {
+        'arrays': 'always-multiline',
+        'objects': 'always-multiline',
+        'imports': 'always-multiline',
+        'exports': 'always-multiline',
+        'functions': 'never'
+      }],
+      'comma-style': ['error', 'last'],
+      'semi': ['error', 'always'],
+      'semi-spacing': ['error', { 'before': false, 'after': true }],
+      'no-extra-semi': 'error',
+      'max-len': ['error', { code: 150, ignoreUrls: true, ignoreStrings: true }],
+      'eqeqeq': ['error', 'smart'],
+      'prefer-const': ['error'],
+      'quotes': ['error', 'single', { 'allowTemplateLiterals': true, 'avoidEscape': true }],
+      'object-shorthand': ['error', 'always'],
+      'no-useless-rename': ['error'],
+      'max-depth': ['error', 4],
+      'no-unneeded-ternary': 'error',
+      'no-nested-ternary': 'warn',
+    },
+  },
+  {
+    files: ['**/*.md'],
+    rules: {
+      'no-trailing-spaces': 'off',
+    },
+  },
+];
+
