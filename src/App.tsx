@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Tools from './pages/Tools';
+import TemperatureConverter from './pages/temperature-converter';
 import NotFound from './pages/NotFound';
 
 function App(): JSX.Element {
@@ -15,6 +16,7 @@ function App(): JSX.Element {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/tools" element={<Tools />} />
+            <Route path="/temperature-converter" element={<TemperatureConverter />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

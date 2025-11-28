@@ -18,7 +18,7 @@ const renderApp = (initialRoute = '/'): void => {
 describe('App', () => {
   it('renders home page by default', () => {
     renderApp('/');
-    expect(screen.getByText('Welcome to Tools')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Available Tools' })).toBeInTheDocument();
   });
 
   it('renders about page', () => {
@@ -29,6 +29,11 @@ describe('App', () => {
   it('renders tools page', () => {
     renderApp('/tools');
     expect(screen.getByText('Available Tools')).toBeInTheDocument();
+  });
+
+  it('renders temperature converter page', () => {
+    renderApp('/temperature-converter');
+    expect(screen.getByText('Temperature Converter')).toBeInTheDocument();
   });
 
   it('renders 404 page for unknown routes', () => {

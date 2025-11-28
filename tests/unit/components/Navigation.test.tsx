@@ -21,7 +21,6 @@ describe('Navigation', () => {
 
     expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
-    // Get the Tools link (not the heading)
     const links = screen.getAllByRole('link', { name: 'Tools' });
     expect(links.length).toBeGreaterThan(0);
   });

@@ -9,8 +9,8 @@ test.describe('Home Page', () => {
     await expect(page).toHaveTitle(/Tools/);
   });
 
-  test('displays welcome message', async ({ page }) => {
-    await expect(page.getByText('Welcome to Tools')).toBeVisible();
+  test('displays available tools heading', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Available Tools' })).toBeVisible();
   });
 
   test('has navigation links', async ({ page }) => {
@@ -27,6 +27,15 @@ test.describe('Home Page', () => {
   test('can navigate to tools page', async ({ page }) => {
     await page.getByRole('link', { name: 'Tools' }).nth(1).click();
     await expect(page.getByText('Available Tools')).toBeVisible();
+  });
+
+  test('displays tool cards', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: /Temperature Converter/i })).toBeVisible();
+    await expect(page.getByText('Convert temperatures between Celsius and Fahrenheit')).toBeVisible();
+  });
+
+  test('tool cards have action buttons', async ({ page }) => {
+    await expect(page.getByRole('button', { name: 'Open Tool →' })).toBeVisible();
   });
 });
 
