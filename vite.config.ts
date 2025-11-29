@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-export default defineConfig({
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: '/tools/',
+  base: mode === 'production' ? '/tools/' : '/',
   build: {
     outDir: 'dist',
     rollupOptions: {
@@ -14,8 +17,8 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 3007,
     open: true,
   },
-});
+}));
 
