@@ -24,7 +24,7 @@ export function useTemperatureConverter(): UseTemperatureConverterReturn {
   const handleCelsiusChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setCelsius(value);
-    
+
     if (value === '' || value === '-') {
       setFahrenheit('');
     } else {
@@ -39,7 +39,7 @@ export function useTemperatureConverter(): UseTemperatureConverterReturn {
   const handleFahrenheitChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setFahrenheit(value);
-    
+
     if (value === '' || value === '-') {
       setCelsius('');
     } else {
