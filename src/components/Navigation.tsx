@@ -21,12 +21,6 @@ function Navigation(): JSX.Element {
         <Link asChild>
           <RouterLink to="/">Home</RouterLink>
         </Link>
-        <Link asChild>
-          <RouterLink to="/about">About</RouterLink>
-        </Link>
-        <Link asChild>
-          <RouterLink to="/tools">Tools</RouterLink>
-        </Link>
       </Flex>
     </Flex>
   );

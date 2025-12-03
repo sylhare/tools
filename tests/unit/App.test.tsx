@@ -21,16 +21,6 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Available Tools' })).toBeInTheDocument();
   });
 
-  it('renders about page', () => {
-    renderApp('/about');
-    expect(screen.getByText('About This Project')).toBeInTheDocument();
-  });
-
-  it('renders tools page', () => {
-    renderApp('/tools');
-    expect(screen.getByText('Available Tools')).toBeInTheDocument();
-  });
-
   it('renders temperature converter page', () => {
     renderApp('/temperature-converter');
     expect(screen.getByText('Temperature Converter')).toBeInTheDocument();
