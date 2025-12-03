@@ -26,6 +26,11 @@ describe('App', () => {
     expect(screen.getByText('Temperature Converter')).toBeInTheDocument();
   });
 
+  it('renders hex-rgb converter page', () => {
+    renderApp('/hex-rgb-converter');
+    expect(screen.getByText('Hex to RGB Converter')).toBeInTheDocument();
+  });
+
   it('renders 404 page for unknown routes', () => {
     renderApp('/unknown-route');
     expect(screen.getByText('Page Not Found')).toBeInTheDocument();

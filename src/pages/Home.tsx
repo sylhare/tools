@@ -9,6 +9,12 @@ function Home(): JSX.Element {
       icon: '🌡️',
       link: '/temperature-converter',
     },
+    {
+      title: 'Hex to RGB Converter',
+      description: 'Convert colors between Hexadecimal and RGB formats with live preview.',
+      icon: '🎨',
+      link: '/hex-rgb-converter',
+    },
   ];
 
   return (
