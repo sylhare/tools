@@ -224,7 +224,6 @@ describe('useHexRgbConverter', () => {
       });
 
       expect(result.current.hex).toBe('INVALID');
-      // RGB should not change for invalid hex
       expect(result.current.r).toBe('');
       expect(result.current.g).toBe('');
       expect(result.current.b).toBe('');
