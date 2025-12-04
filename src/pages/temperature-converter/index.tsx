@@ -1,8 +1,18 @@
 import { Flex, Heading, Text, Card, TextField } from '@radix-ui/themes';
-import { useTemperatureConverter } from './useTemperatureConverter';
+import { useConverter } from '../../utils/conversions';
+import { temperatureConverter, selectedUnits } from './config';
 
 function TemperatureConverter(): JSX.Element {
-  const { celsius, fahrenheit, handleCelsiusChange, handleFahrenheitChange } = useTemperatureConverter();
+  const { values, handlers } = useConverter({
+    converter: temperatureConverter,
+    units: selectedUnits,
+    defaultPrecision: 2,
+  });
+
+  const celsius = values.celsius || '';
+  const fahrenheit = values.fahrenheit || '';
+  const handleCelsiusChange = handlers.celsius;
+  const handleFahrenheitChange = handlers.fahrenheit;
 
   return (
     <Flex direction="column" gap="6" py="6">
