@@ -414,11 +414,11 @@ describe('useConverter', () => {
         result.current.handlers.ml({
           target: { value: '100' },
         } as React.ChangeEvent<HTMLInputElement>);
-        
+
         result.current.handlers.ml({
           target: { value: '200' },
         } as React.ChangeEvent<HTMLInputElement>);
-        
+
         result.current.handlers.ml({
           target: { value: '300' },
         } as React.ChangeEvent<HTMLInputElement>);

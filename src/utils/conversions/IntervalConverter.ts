@@ -60,15 +60,15 @@ export class IntervalConverter {
    */
   formatValue(value: number, precision?: number): string {
     const decimals = precision ?? this.defaultPrecision;
-    
+
     if (Math.abs(value) < Math.pow(10, -decimals) && value !== 0) {
       return value.toExponential(decimals);
     }
-    
+
     if (Math.abs(value) > Math.pow(10, 10)) {
       return value.toExponential(decimals);
     }
-    
+
     return value.toFixed(decimals);
   }
 

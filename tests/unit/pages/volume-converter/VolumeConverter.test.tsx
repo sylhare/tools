@@ -15,7 +15,7 @@ describe('VolumeConverter Component', () => {
 
   it('should render all input fields', () => {
     render(<VolumeConverter />);
-    
+
     expect(screen.getByPlaceholderText('Enter mL')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter L')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter tsp')).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe('VolumeConverter Component', () => {
 
   it('should render unit labels', () => {
     render(<VolumeConverter />);
-    
+
     expect(screen.getByText(/Milliliters/)).toBeInTheDocument();
     expect(screen.getByText(/Liters/)).toBeInTheDocument();
     expect(screen.getByText(/Teaspoons/)).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('VolumeConverter Component', () => {
 
   it('should render Quick Reference card', () => {
     render(<VolumeConverter />);
-    
+
     expect(screen.getByText('Quick Reference')).toBeInTheDocument();
     expect(screen.getByText(/1 cup = 236.6 mL/)).toBeInTheDocument();
     expect(screen.getByText(/1 cup = 8 fl oz/)).toBeInTheDocument();
@@ -50,17 +50,17 @@ describe('VolumeConverter Component', () => {
 
   it('should render Cooking Tips card', () => {
     render(<VolumeConverter />);
-    
+
     expect(screen.getByText('Cooking Tips')).toBeInTheDocument();
     expect(screen.getByText(/For water and similar liquids/)).toBeInTheDocument();
   });
 
   it('should initialize with empty input values', () => {
     render(<VolumeConverter />);
-    
+
     const mlInput = screen.getByPlaceholderText('Enter mL') as HTMLInputElement;
     const cupInput = screen.getByPlaceholderText('Enter cups') as HTMLInputElement;
-    
+
     expect(mlInput.value).toBe('');
     expect(cupInput.value).toBe('');
   });

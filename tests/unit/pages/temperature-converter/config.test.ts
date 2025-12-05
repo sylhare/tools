@@ -110,5 +110,3 @@ describe('Temperature Converter Config', () => {
   });
 });
 
-
-

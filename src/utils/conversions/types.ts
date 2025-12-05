@@ -101,5 +101,3 @@ export interface IntervalConverterOptions {
   defaultPrecision?: number;
 }
 
-
-

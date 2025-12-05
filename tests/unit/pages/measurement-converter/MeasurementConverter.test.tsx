@@ -25,7 +25,7 @@ describe('MeasurementConverter Component', () => {
 
   it('should render all metric input fields', () => {
     render(<MeasurementConverter />);
-    
+
     expect(screen.getByPlaceholderText('Enter mm')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter cm')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter m')).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('MeasurementConverter Component', () => {
 
   it('should render all imperial input fields', () => {
     render(<MeasurementConverter />);
-    
+
     expect(screen.getByPlaceholderText('Enter in')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter ft')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter yd')).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('MeasurementConverter Component', () => {
 
   it('should render metric unit labels', () => {
     render(<MeasurementConverter />);
-    
+
     expect(screen.getByText(/Millimeters/)).toBeInTheDocument();
     expect(screen.getByText(/Centimeters/)).toBeInTheDocument();
     expect(screen.getByText(/Meters/)).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe('MeasurementConverter Component', () => {
 
   it('should render imperial unit labels', () => {
     render(<MeasurementConverter />);
-    
+
     expect(screen.getByText(/Inches/)).toBeInTheDocument();
     expect(screen.getByText(/Feet/)).toBeInTheDocument();
     expect(screen.getByText(/Yards/)).toBeInTheDocument();
@@ -66,7 +66,7 @@ describe('MeasurementConverter Component', () => {
 
   it('should render Quick Reference card', () => {
     render(<MeasurementConverter />);
-    
+
     expect(screen.getByText('Quick Reference')).toBeInTheDocument();
     expect(screen.getByText(/1 inch = 2.54 cm/)).toBeInTheDocument();
     expect(screen.getByText(/1 foot = 12 inches/)).toBeInTheDocument();
@@ -74,31 +74,29 @@ describe('MeasurementConverter Component', () => {
 
   it('should render Size Reference card', () => {
     render(<MeasurementConverter />);
-    
+
     expect(screen.getByText('Size Reference')).toBeInTheDocument();
     expect(screen.getByText(/Credit card/)).toBeInTheDocument();
   });
 
   it('should initialize with empty input values', () => {
     render(<MeasurementConverter />);
-    
+
     const cmInput = screen.getByPlaceholderText('Enter cm') as HTMLInputElement;
     const inInput = screen.getByPlaceholderText('Enter in') as HTMLInputElement;
-    
+
     expect(cmInput.value).toBe('');
     expect(inInput.value).toBe('');
   });
 
   it('should have organized layout with metric and imperial sections', () => {
     render(<MeasurementConverter />);
-    
+
     const metricSection = screen.getByText('Metric System');
     const imperialSection = screen.getByText('Imperial System');
-    
+
     expect(metricSection).toBeInTheDocument();
     expect(imperialSection).toBeInTheDocument();
   });
 });
-
-
 

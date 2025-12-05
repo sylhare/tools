@@ -1,8 +1,3 @@
-/**
- * Generic React hook for unit conversions
- * Works with both RatioConverter and IntervalConverter
- */
-
 import { useState, useCallback, ChangeEvent } from 'react';
 import { Unit, UseConverterReturn } from './types';
 import { RatioConverter } from './RatioConverter';

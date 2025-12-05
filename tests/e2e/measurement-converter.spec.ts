@@ -22,7 +22,7 @@ test.describe('Measurement Converter', () => {
     test('should display all metric input fields', async ({ page }) => {
       await expect(page.getByPlaceholder('Enter mm')).toBeVisible();
       await expect(page.getByPlaceholder('Enter cm')).toBeVisible();
-      await expect(page.getByPlaceholder('Enter m')).toBeVisible();
+      await expect(page.getByPlaceholder('Enter m', { exact: true })).toBeVisible();
       await expect(page.getByPlaceholder('Enter km')).toBeVisible();
     });
 
@@ -54,7 +54,7 @@ test.describe('Measurement Converter', () => {
       const cmInput = page.getByPlaceholder('Enter cm');
 
       await inchInput.fill('1');
-      
+
       await expect(cmInput).toHaveValue('2.54');
     });
 
@@ -63,7 +63,7 @@ test.describe('Measurement Converter', () => {
       const cmInput = page.getByPlaceholder('Enter cm');
 
       await inchInput.fill('10');
-      
+
       await expect(cmInput).toHaveValue('25.40');
     });
 
@@ -81,29 +81,29 @@ test.describe('Measurement Converter', () => {
 
   test.describe('Meter to Feet Conversion', () => {
     test('should convert 1 meter to feet', async ({ page }) => {
-      const meterInput = page.getByPlaceholder('Enter m');
+      const meterInput = page.getByPlaceholder('Enter m', { exact: true });
       const feetInput = page.getByPlaceholder('Enter ft');
 
       await meterInput.fill('1');
-      
+
       await expect(feetInput).toHaveValue(/^3\.28/);
     });
 
     test('should convert 10 meters to feet', async ({ page }) => {
-      const meterInput = page.getByPlaceholder('Enter m');
+      const meterInput = page.getByPlaceholder('Enter m', { exact: true });
       const feetInput = page.getByPlaceholder('Enter ft');
 
       await meterInput.fill('10');
-      
+
       await expect(feetInput).toHaveValue(/^32\.8/);
     });
 
     test('should convert meters to inches', async ({ page }) => {
-      const meterInput = page.getByPlaceholder('Enter m');
+      const meterInput = page.getByPlaceholder('Enter m', { exact: true });
       const inchInput = page.getByPlaceholder('Enter in');
 
       await meterInput.fill('1');
-      
+
       await expect(inchInput).toHaveValue(/^39\.3/);
     });
   });
@@ -114,7 +114,7 @@ test.describe('Measurement Converter', () => {
       const miInput = page.getByPlaceholder('Enter mi');
 
       await kmInput.fill('1');
-      
+
       await expect(miInput).toHaveValue(/^0\.62/);
     });
 
@@ -123,7 +123,7 @@ test.describe('Measurement Converter', () => {
       const miInput = page.getByPlaceholder('Enter mi');
 
       await kmInput.fill('10');
-      
+
       await expect(miInput).toHaveValue(/^6\.2/);
     });
 
@@ -132,8 +132,8 @@ test.describe('Measurement Converter', () => {
       const kmInput = page.getByPlaceholder('Enter km');
 
       await miInput.fill('1');
-      
-      await expect(kmInput).toHaveValue(/^1\.60/);
+
+      await expect(kmInput).toHaveValue(/^1\.61/);
     });
   });
 
@@ -143,25 +143,25 @@ test.describe('Measurement Converter', () => {
       const cmInput = page.getByPlaceholder('Enter cm');
 
       await mmInput.fill('1000');
-      
+
       await expect(cmInput).toHaveValue('100.00');
     });
 
     test('should convert 100 cm to 1 m', async ({ page }) => {
       const cmInput = page.getByPlaceholder('Enter cm');
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
 
       await cmInput.fill('100');
-      
+
       await expect(mInput).toHaveValue('1.00');
     });
 
     test('should convert 1000 m to 1 km', async ({ page }) => {
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
       const kmInput = page.getByPlaceholder('Enter km');
 
       await mInput.fill('1000');
-      
+
       await expect(kmInput).toHaveValue('1.00');
     });
 
@@ -170,7 +170,7 @@ test.describe('Measurement Converter', () => {
       const mmInput = page.getByPlaceholder('Enter mm');
 
       await cmInput.fill('2.5');
-      
+
       await expect(mmInput).toHaveValue('25.00');
     });
   });
@@ -181,7 +181,7 @@ test.describe('Measurement Converter', () => {
       const footInput = page.getByPlaceholder('Enter ft');
 
       await inchInput.fill('12');
-      
+
       await expect(footInput).toHaveValue(/^1\.00/);
     });
 
@@ -190,7 +190,7 @@ test.describe('Measurement Converter', () => {
       const yardInput = page.getByPlaceholder('Enter yd');
 
       await footInput.fill('3');
-      
+
       await expect(yardInput).toHaveValue(/^1\.00/);
     });
 
@@ -199,7 +199,7 @@ test.describe('Measurement Converter', () => {
       const inchInput = page.getByPlaceholder('Enter in');
 
       await yardInput.fill('1');
-      
+
       await expect(inchInput).toHaveValue(/^36\.00/);
     });
 
@@ -208,7 +208,7 @@ test.describe('Measurement Converter', () => {
       const inchInput = page.getByPlaceholder('Enter in');
 
       await footInput.fill('2.5');
-      
+
       await expect(inchInput).toHaveValue(/^30\.00/);
     });
   });
@@ -220,7 +220,7 @@ test.describe('Measurement Converter', () => {
       const mmInput = page.getByPlaceholder('Enter mm');
 
       await cmInput.fill('10');
-      
+
       await expect(inchInput).toHaveValue(/^3\.9/);
       await expect(mmInput).toHaveValue('100.00');
     });
@@ -229,11 +229,11 @@ test.describe('Measurement Converter', () => {
       const inchInput = page.getByPlaceholder('Enter in');
       const cmInput = page.getByPlaceholder('Enter cm');
       const mmInput = page.getByPlaceholder('Enter mm');
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
 
       await inchInput.fill('1');
       await expect(cmInput).toHaveValue('2.54');
-      
+
       await cmInput.fill('5');
       await expect(inchInput).toHaveValue(/^1\.9/);
       await expect(mmInput).toHaveValue('50.00');
@@ -247,25 +247,25 @@ test.describe('Measurement Converter', () => {
       const inchInput = page.getByPlaceholder('Enter in');
 
       await cmInput.fill('0');
-      
+
       await expect(inchInput).toHaveValue('0.00');
     });
 
     test('should handle very large numbers', async ({ page }) => {
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
       const kmInput = page.getByPlaceholder('Enter km');
 
       await mInput.fill('1000000');
-      
+
       await expect(kmInput).toHaveValue('1000.00');
     });
 
     test('should handle very small decimal values', async ({ page }) => {
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
       const cmInput = page.getByPlaceholder('Enter cm');
 
       await mInput.fill('0.01');
-      
+
       await expect(cmInput).toHaveValue('1.00');
     });
 
@@ -274,7 +274,7 @@ test.describe('Measurement Converter', () => {
       const inchInput = page.getByPlaceholder('Enter in');
 
       await cmInput.fill('-10');
-      
+
       await expect(inchInput).toHaveValue(/^-/);
     });
   });
@@ -283,7 +283,7 @@ test.describe('Measurement Converter', () => {
     test('should clear all fields when Clear All button is clicked', async ({ page }) => {
       const cmInput = page.getByPlaceholder('Enter cm');
       const inchInput = page.getByPlaceholder('Enter in');
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
       const clearButton = page.getByRole('button', { name: 'Clear All' });
 
       await cmInput.fill('100');
@@ -304,7 +304,7 @@ test.describe('Measurement Converter', () => {
 
       await inchInput.fill('10');
       await clearButton.click();
-      
+
       await inchInput.fill('1');
       await expect(cmInput).toHaveValue('2.54');
     });
@@ -316,7 +316,7 @@ test.describe('Measurement Converter', () => {
       const cmInput = page.getByPlaceholder('Enter cm');
 
       await inchInput.fill('1');
-      
+
       const cmValue = await cmInput.inputValue();
       expect(cmValue).toMatch(/^\d+\.\d{2}$/);
     });
@@ -326,7 +326,7 @@ test.describe('Measurement Converter', () => {
       const miInput = page.getByPlaceholder('Enter mi');
 
       await kmInput.fill('1.6');
-      
+
       await expect(miInput).toHaveValue(/^\d+\.\d{2}$/);
     });
   });
@@ -337,7 +337,7 @@ test.describe('Measurement Converter', () => {
       const inchInput = page.getByPlaceholder('Enter in');
 
       await footInput.fill('1');
-      
+
       await expect(inchInput).toHaveValue(/^12\.00/);
     });
 
@@ -346,29 +346,27 @@ test.describe('Measurement Converter', () => {
       const footInput = page.getByPlaceholder('Enter ft');
 
       await yardInput.fill('1');
-      
+
       await expect(footInput).toHaveValue(/^3\.00/);
     });
 
     test('should verify 1 meter equals 100 cm', async ({ page }) => {
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
       const cmInput = page.getByPlaceholder('Enter cm');
 
       await mInput.fill('1');
-      
+
       await expect(cmInput).toHaveValue('100.00');
     });
 
     test('should verify 1 km equals 1000 meters', async ({ page }) => {
       const kmInput = page.getByPlaceholder('Enter km');
-      const mInput = page.getByPlaceholder('Enter m');
+      const mInput = page.getByPlaceholder('Enter m', { exact: true });
 
       await kmInput.fill('1');
-      
+
       await expect(mInput).toHaveValue('1000.00');
     });
   });
 });
-
-
 
