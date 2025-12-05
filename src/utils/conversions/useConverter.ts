@@ -60,7 +60,7 @@ export function useConverter(options: UseConverterOptions): UseConverterReturn {
       }
 
       const newValues: Record<string, string> = {};
-      
+
       units.forEach(unit => {
         if (unit.id === unitId) {
           newValues[unit.id] = inputValue;

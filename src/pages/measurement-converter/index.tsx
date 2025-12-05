@@ -31,7 +31,7 @@ function MeasurementConverter(): JSX.Element {
               <Text size="4" weight="bold" color="blue">
                 Metric System
               </Text>
-              {metricConfig.map((config) => {
+              {metricConfig.map(config => {
                 const unit = selectedUnits.find(u => u.id === config.id);
                 if (!unit) return null;
 
@@ -57,7 +57,7 @@ function MeasurementConverter(): JSX.Element {
               <Text size="4" weight="bold" color="orange">
                 Imperial System
               </Text>
-              {imperialConfig.map((config) => {
+              {imperialConfig.map(config => {
                 const unit = selectedUnits.find(u => u.id === config.id);
                 if (!unit) return null;
 

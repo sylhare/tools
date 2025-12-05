@@ -97,7 +97,7 @@ describe('Measurement Converter Config', () => {
     it('should match metricUnits IDs', () => {
       const configIds = metricConfig.map(c => c.id);
       const unitIds = metricUnits.map(u => u.id);
-      
+
       expect(configIds).toEqual(unitIds);
     });
   });
@@ -118,7 +118,7 @@ describe('Measurement Converter Config', () => {
     it('should match imperialUnits IDs', () => {
       const configIds = imperialConfig.map(c => c.id);
       const unitIds = imperialUnits.map(u => u.id);
-      
+
       expect(configIds).toEqual(unitIds);
     });
   });

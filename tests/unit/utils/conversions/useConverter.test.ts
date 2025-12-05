@@ -12,8 +12,8 @@ describe('useConverter', () => {
       name: 'Milliliters',
       symbol: 'mL',
       category: UnitCategory.Volume,
-      toBase: (v) => v,
-      fromBase: (v) => v,
+      toBase: v => v,
+      fromBase: v => v,
       isBase: true,
     },
     {
@@ -21,8 +21,8 @@ describe('useConverter', () => {
       name: 'Cups',
       symbol: 'cup',
       category: UnitCategory.Volume,
-      toBase: (v) => v * 236.588,
-      fromBase: (v) => v / 236.588,
+      toBase: v => v * 236.588,
+      fromBase: v => v / 236.588,
     },
   ];
 
@@ -32,8 +32,8 @@ describe('useConverter', () => {
       name: 'Celsius',
       symbol: '°C',
       category: UnitCategory.Temperature,
-      toBase: (v) => v,
-      fromBase: (v) => v,
+      toBase: v => v,
+      fromBase: v => v,
       isBase: true,
     },
     {
@@ -41,8 +41,8 @@ describe('useConverter', () => {
       name: 'Fahrenheit',
       symbol: '°F',
       category: UnitCategory.Temperature,
-      toBase: (v) => (v - 32) * 5 / 9,
-      fromBase: (v) => (v * 9 / 5) + 32,
+      toBase: v => (v - 32) * 5 / 9,
+      fromBase: v => (v * 9 / 5) + 32,
     },
   ];
 

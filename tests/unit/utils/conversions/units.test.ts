@@ -169,10 +169,10 @@ describe('Unit Definitions', () => {
     it('should have correct Fahrenheit conversion', () => {
       const fahrenheit = temperatureUnits.find(u => u.id === 'fahrenheit');
       expect(fahrenheit).toBeDefined();
-      
+
       expect(fahrenheit!.toBase(32)).toBeCloseTo(0, 5);
       expect(fahrenheit!.toBase(212)).toBeCloseTo(100, 5);
-      
+
       expect(fahrenheit!.fromBase(0)).toBeCloseTo(32, 5);
       expect(fahrenheit!.fromBase(100)).toBeCloseTo(212, 5);
     });
@@ -180,17 +180,17 @@ describe('Unit Definitions', () => {
     it('should have correct Kelvin conversion', () => {
       const kelvin = temperatureUnits.find(u => u.id === 'kelvin');
       expect(kelvin).toBeDefined();
-      
+
       expect(kelvin!.toBase(273.15)).toBeCloseTo(0, 2);
       expect(kelvin!.toBase(373.15)).toBeCloseTo(100, 2);
-      
+
       expect(kelvin!.fromBase(0)).toBeCloseTo(273.15, 2);
       expect(kelvin!.fromBase(100)).toBeCloseTo(373.15, 2);
     });
 
     it('should handle special temperature points', () => {
       const fahrenheit = temperatureUnits.find(u => u.id === 'fahrenheit');
-      
+
       expect(fahrenheit!.toBase(-40)).toBeCloseTo(-40, 5);
       expect(fahrenheit!.fromBase(-40)).toBeCloseTo(-40, 5);
     });
@@ -258,7 +258,7 @@ describe('Unit Definitions', () => {
     it('should convert known volume values correctly', () => {
       const cup = volumeUnits.find(u => u.id === 'cup')!;
       const floz = volumeUnits.find(u => u.id === 'floz')!;
-      
+
       const cupInMl = cup.toBase(1);
       const flozInMl = floz.toBase(8);
       expect(cupInMl).toBeCloseTo(flozInMl, 1);
@@ -267,7 +267,7 @@ describe('Unit Definitions', () => {
     it('should convert known length values correctly', () => {
       const foot = lengthUnits.find(u => u.id === 'ft')!;
       const inch = lengthUnits.find(u => u.id === 'in')!;
-      
+
       const footInCm = foot.toBase(1);
       const inchInCm = inch.toBase(12);
       expect(footInCm).toBeCloseTo(inchInCm, 2);

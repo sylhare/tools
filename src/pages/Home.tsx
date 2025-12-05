@@ -39,7 +39,7 @@ function Home(): JSX.Element {
       </Flex>
 
       <Flex gap="4" wrap="wrap">
-        {tools.map((tool) => (
+        {tools.map(tool => (
           <ToolCard key={tool.link} {...tool} />
         ))}
       </Flex>

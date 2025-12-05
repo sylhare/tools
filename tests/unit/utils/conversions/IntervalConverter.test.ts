@@ -58,8 +58,8 @@ describe('IntervalConverter', () => {
           name: 'Milliliters',
           symbol: 'mL',
           category: UnitCategory.Volume,
-          toBase: (v) => v,
-          fromBase: (v) => v,
+          toBase: v => v,
+          fromBase: v => v,
         },
       ];
 

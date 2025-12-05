@@ -207,7 +207,7 @@ test.describe('Hex to RGB Converter', () => {
     await expect(rgbInputs.nth(0)).toHaveValue('255');
 
     const preview = page.getByTestId('color-preview');
-    const bgColor = await preview.evaluate((el) => window.getComputedStyle(el).backgroundColor);
+    const bgColor = await preview.evaluate(el => window.getComputedStyle(el).backgroundColor);
     expect(bgColor).toMatch(/^rgba?\(255,\s*0,\s*0(?:,\s*1)?\)$/);
   });
 

@@ -62,7 +62,7 @@ describe('Temperature Converter Config', () => {
     it('should match selectedUnits IDs', () => {
       const configIds = unitConfig.map(c => c.id);
       const unitIds = selectedUnits.map(u => u.id);
-      
+
       expect(configIds).toEqual(unitIds);
     });
   });
@@ -100,7 +100,7 @@ describe('Temperature Converter Config', () => {
 
     it('should match old implementation formulas', () => {
       const testValues = [0, 20, 37, 100, -40];
-      
+
       testValues.forEach(celsius => {
         const oldFormula = (celsius * 9 / 5) + 32;
         const newResult = temperatureConverter.convert(celsius, 'celsius', 'fahrenheit');

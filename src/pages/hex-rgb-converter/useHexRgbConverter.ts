@@ -29,7 +29,7 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
     }
 
     const fullHex = cleanHex.length === 3
-      ? cleanHex.split('').map((char) => char + char).join('')
+      ? cleanHex.split('').map(char => char + char).join('')
       : cleanHex;
 
     const num = parseInt(fullHex, 16);

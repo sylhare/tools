@@ -59,7 +59,7 @@ describe('Volume Converter Config', () => {
     it('should match selectedUnits IDs', () => {
       const configIds = unitConfig.map(c => c.id);
       const unitIds = selectedUnits.map(u => u.id);
-      
+
       configIds.forEach(id => {
         expect(unitIds).toContain(id);
       });

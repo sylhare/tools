@@ -52,8 +52,8 @@ describe('RatioConverter', () => {
         name: 'Liter',
         symbol: 'L',
         category: UnitCategory.Volume,
-        toBase: (v) => v * 1000,
-        fromBase: (v) => v / 1000,
+        toBase: v => v * 1000,
+        fromBase: v => v / 1000,
       };
 
       expect(() => {
@@ -72,8 +72,8 @@ describe('RatioConverter', () => {
           name: 'Centimeters',
           symbol: 'cm',
           category: UnitCategory.Length,
-          toBase: (v) => v,
-          fromBase: (v) => v,
+          toBase: v => v,
+          fromBase: v => v,
         },
       ];
 
