@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import TemperatureConverter from './pages/temperature-converter';
 import HexRgbConverter from './pages/hex-rgb-converter';
+import VolumeConverter from './pages/volume-converter';
+import MeasurementConverter from './pages/measurement-converter';
 import NotFound from './pages/NotFound';
 
 function App(): JSX.Element {
@@ -15,6 +17,8 @@ function App(): JSX.Element {
             <Route path="/" element={<Home />} />
             <Route path="/temperature-converter" element={<TemperatureConverter />} />
             <Route path="/hex-rgb-converter" element={<HexRgbConverter />} />
+            <Route path="/volume-converter" element={<VolumeConverter />} />
+            <Route path="/measurement-converter" element={<MeasurementConverter />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

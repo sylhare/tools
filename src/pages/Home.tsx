@@ -15,6 +15,18 @@ function Home(): JSX.Element {
       icon: '🎨',
       link: '/hex-rgb-converter',
     },
+    {
+      title: 'Volume Converter',
+      description: 'Convert volumes between metric and imperial units for cooking and more.',
+      icon: '🥛',
+      link: '/volume-converter',
+    },
+    {
+      title: 'Length Converter',
+      description: 'Convert lengths between metric and imperial measurement systems.',
+      icon: '📏',
+      link: '/measurement-converter',
+    },
   ];
 
   return (
