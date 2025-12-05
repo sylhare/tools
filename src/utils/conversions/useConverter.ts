@@ -68,7 +68,7 @@ export function useConverter(options: UseConverterOptions): UseConverterReturn {
           try {
             const convertedValue = converter.convert(numValue, unitId, unit.id);
             newValues[unit.id] = formatValue(convertedValue, unit.id);
-          } catch (error) {
+          } catch (_error) {
             newValues[unit.id] = '';
           }
         }
