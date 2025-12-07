@@ -5,10 +5,12 @@ import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import App from './App';
 
+const basename = import.meta.env.MODE === 'production' ? '/tools' : '/';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%">
-      <BrowserRouter basename="/tools">
+      <BrowserRouter basename={basename}>
         <App />
       </BrowserRouter>
     </Theme>
