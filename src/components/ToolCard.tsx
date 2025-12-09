@@ -10,7 +10,7 @@ interface ToolCardProps {
 
 function ToolCard({ title, description, icon, link }: ToolCardProps): JSX.Element {
   return (
-    <Card style={{ flex: '1', minWidth: '300px' }}>
+    <Card style={{ flex: '0 0 calc(50% - var(--space-2))', minWidth: '300px' }}>
       <Flex direction="column" gap="3" p="2">
         <Heading size="6">{icon} {title}</Heading>
         <Text color="gray">{description}</Text>
