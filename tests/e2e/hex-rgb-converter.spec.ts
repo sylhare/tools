@@ -126,7 +126,8 @@ test.describe('Hex to RGB Converter', () => {
     await expect(copyButtons.last()).toBeVisible();
   });
 
-  test('copy buttons copy correct values to clipboard', async ({ page, context }) => {
+  test('copy buttons copy correct values to clipboard', async ({ page, context, browserName }) => {
+    test.skip(browserName !== 'chromium', 'Clipboard permissions are only supported in Chromium');
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     await page.goto('/hex-rgb-converter');
 
