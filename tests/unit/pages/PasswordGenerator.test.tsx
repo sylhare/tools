@@ -74,8 +74,6 @@ describe('PasswordGenerator', () => {
     });
 
     const passwordInput = screen.getByTestId('password-output') as HTMLInputElement;
-    const initialPassword = passwordInput.value;
-
     const generateButton = screen.getByTestId('generate-button');
     fireEvent.click(generateButton);
 
@@ -125,5 +123,4 @@ describe('PasswordGenerator', () => {
     expect(screen.getByTestId('length-display')).toHaveTextContent('16 characters');
   });
 });
-
 

@@ -343,7 +343,7 @@ describe('usePasswordGenerator', () => {
     it('returns false when clipboard write fails', async () => {
       const mockWriteText = vi.fn().mockRejectedValue(new Error('Clipboard error'));
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       Object.assign(navigator, {
         clipboard: {
           writeText: mockWriteText,
@@ -363,10 +363,9 @@ describe('usePasswordGenerator', () => {
 
       expect(copyResult).toBe(false);
       expect(consoleSpy).toHaveBeenCalled();
-      
+
       consoleSpy.mockRestore();
     });
   });
 });
-
 

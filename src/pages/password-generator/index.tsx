@@ -42,10 +42,10 @@ function PasswordGenerator(): JSX.Element {
   };
 
   // Check if at least one character type is selected
-  const hasAtLeastOneOption = 
-    options.includeUppercase || 
-    options.includeLowercase || 
-    options.includeNumbers || 
+  const hasAtLeastOneOption =
+    options.includeUppercase ||
+    options.includeLowercase ||
+    options.includeNumbers ||
     options.includeSpecialChars;
 
   return (
@@ -88,9 +88,9 @@ function PasswordGenerator(): JSX.Element {
             <Flex direction="column" gap="2">
               <Flex justify="between" align="center">
                 <Text size="2" weight="bold">Password Strength</Text>
-                <Text 
-                  size="2" 
-                  weight="bold" 
+                <Text
+                  size="2"
+                  weight="bold"
                   data-testid="strength-label"
                   style={{ color: strengthColors[strength] }}
                 >
@@ -109,9 +109,7 @@ function PasswordGenerator(): JSX.Element {
               >
                 <div
                   style={{
-                    width: strength === 'weak' ? '25%' : 
-                           strength === 'medium' ? '50%' : 
-                           strength === 'strong' ? '75%' : '100%',
+                    width: { weak: '25%', medium: '50%', strong: '75%', 'very-strong': '100%' }[strength],
                     height: '100%',
                     backgroundColor: strengthColors[strength],
                     transition: 'width 0.3s ease, background-color 0.3s ease',
@@ -130,7 +128,7 @@ function PasswordGenerator(): JSX.Element {
             <Slider
               data-testid="length-slider"
               value={[options.length]}
-              onValueChange={(value) => setLength(value[0])}
+              onValueChange={value => setLength(value[0])}
               min={4}
               max={128}
               step={1}
@@ -140,12 +138,12 @@ function PasswordGenerator(): JSX.Element {
           {/* Character Options */}
           <Flex direction="column" gap="3">
             <Text size="2" weight="bold">Character Types</Text>
-            
+
             <Flex align="center" gap="2">
               <Checkbox
                 data-testid="uppercase-checkbox"
                 checked={options.includeUppercase}
-                onCheckedChange={(checked) => setIncludeUppercase(checked === true)}
+                onCheckedChange={checked => setIncludeUppercase(checked === true)}
               />
               <Text size="2">Uppercase Letters (A-Z)</Text>
             </Flex>
@@ -154,7 +152,7 @@ function PasswordGenerator(): JSX.Element {
               <Checkbox
                 data-testid="lowercase-checkbox"
                 checked={options.includeLowercase}
-                onCheckedChange={(checked) => setIncludeLowercase(checked === true)}
+                onCheckedChange={checked => setIncludeLowercase(checked === true)}
               />
               <Text size="2">Lowercase Letters (a-z)</Text>
             </Flex>
@@ -163,7 +161,7 @@ function PasswordGenerator(): JSX.Element {
               <Checkbox
                 data-testid="numbers-checkbox"
                 checked={options.includeNumbers}
-                onCheckedChange={(checked) => setIncludeNumbers(checked === true)}
+                onCheckedChange={checked => setIncludeNumbers(checked === true)}
               />
               <Text size="2">Numbers (0-9)</Text>
             </Flex>
@@ -172,7 +170,7 @@ function PasswordGenerator(): JSX.Element {
               <Checkbox
                 data-testid="special-checkbox"
                 checked={options.includeSpecialChars}
-                onCheckedChange={(checked) => setIncludeSpecialChars(checked === true)}
+                onCheckedChange={checked => setIncludeSpecialChars(checked === true)}
               />
               <Text size="2">Special Characters (!@#$%^&*...)</Text>
             </Flex>
@@ -215,5 +213,4 @@ function PasswordGenerator(): JSX.Element {
 }
 
 export default PasswordGenerator;
-
 

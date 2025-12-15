@@ -86,7 +86,7 @@ export function usePasswordGenerator(): UsePasswordGeneratorReturn {
     // Generate random characters for the remaining length
     const remainingLength = Math.max(0, options.length - requiredChars.length);
     const randomChars: string[] = [];
-    
+
     for (let i = 0; i < remainingLength; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       randomChars.push(charset[randomIndex]);
@@ -149,5 +149,4 @@ export function usePasswordGenerator(): UsePasswordGeneratorReturn {
     getPasswordStrength,
   };
 }
-
 

@@ -28,8 +28,6 @@ test.describe('Password Generator', () => {
     await page.goto('/password-generator');
 
     const passwordInput = page.getByTestId('password-output');
-    const initialPassword = await passwordInput.inputValue();
-
     const generateButton = page.getByTestId('generate-button');
     await generateButton.click();
 
@@ -57,7 +55,7 @@ test.describe('Password Generator', () => {
     // Change the length by clicking on a different position
     const slider = page.getByTestId('length-slider');
     const sliderBoundingBox = await slider.boundingBox();
-    
+
     if (sliderBoundingBox) {
       // Click towards the right side of the slider to increase length
       await page.mouse.click(
@@ -68,10 +66,10 @@ test.describe('Password Generator', () => {
 
     // Generate a new password with the new length
     await page.getByTestId('generate-button').click();
-    
+
     const passwordInput = page.getByTestId('password-output');
     const password = await passwordInput.inputValue();
-    
+
     // Password should be longer than 16
     expect(password.length).toBeGreaterThan(16);
   });
@@ -167,7 +165,7 @@ test.describe('Password Generator', () => {
     // Set a long length
     const slider = page.getByTestId('length-slider');
     const sliderBoundingBox = await slider.boundingBox();
-    
+
     if (sliderBoundingBox) {
       await page.mouse.click(
         sliderBoundingBox.x + sliderBoundingBox.width * 0.9,
@@ -186,7 +184,7 @@ test.describe('Password Generator', () => {
     // Set minimum length
     const slider = page.getByTestId('length-slider');
     const sliderBoundingBox = await slider.boundingBox();
-    
+
     if (sliderBoundingBox) {
       await page.mouse.click(
         sliderBoundingBox.x + 5,
@@ -244,7 +242,7 @@ test.describe('Password Generator', () => {
     // Generate several passwords and check each contains all types
     for (let i = 0; i < 5; i++) {
       await page.getByTestId('generate-button').click();
-      
+
       const passwordInput = page.getByTestId('password-output');
       const password = await passwordInput.inputValue();
 
@@ -269,5 +267,4 @@ test.describe('Password Generator', () => {
     expect(await passwordInput.inputValue()).toBe(initialValue);
   });
 });
-
 
