@@ -27,6 +27,12 @@ function Home(): JSX.Element {
       icon: '📏',
       link: '/measurement-converter',
     },
+    {
+      title: 'Password Generator',
+      description: 'Generate secure passwords with customizable options and strength indicator.',
+      icon: '🔐',
+      link: '/password-generator',
+    },
   ];
 
   return (
