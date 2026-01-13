@@ -28,18 +28,6 @@ function BadmintonManager(): JSX.Element {
           />
         </Flex>
       </Card>
-
-      <Card style={{ maxWidth: '600px' }} variant="surface">
-        <Flex direction="column" gap="2" p="3">
-          <Text size="2" weight="bold">About</Text>
-          <Flex direction="column" gap="1">
-            <Text size="2" color="gray">• Organize badminton matches and tournaments</Text>
-            <Text size="2" color="gray">• Track player statistics and rankings</Text>
-            <Text size="2" color="gray">• Generate match schedules automatically</Text>
-            <Text size="2" color="gray">• Manage team compositions and rotations</Text>
-          </Flex>
-        </Flex>
-      </Card>
     </Flex>
   );
 }
