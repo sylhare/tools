@@ -133,7 +133,6 @@ describe('usePasswordGenerator', () => {
     it('includes at least one character from each selected type', () => {
       const { result } = renderHook(() => usePasswordGenerator());
 
-      // Generate multiple times to ensure this is consistent
       for (let i = 0; i < 10; i++) {
         act(() => {
           result.current.generatePassword();
@@ -150,7 +149,6 @@ describe('usePasswordGenerator', () => {
       const { result } = renderHook(() => usePasswordGenerator());
       const passwords = new Set<string>();
 
-      // Generate 10 passwords and check they're unique
       for (let i = 0; i < 10; i++) {
         act(() => {
           result.current.generatePassword();
@@ -158,7 +156,6 @@ describe('usePasswordGenerator', () => {
         passwords.add(result.current.password);
       }
 
-      // With 16-character passwords using all character types, duplicates should be extremely rare
       expect(passwords.size).toBeGreaterThan(5);
     });
   });

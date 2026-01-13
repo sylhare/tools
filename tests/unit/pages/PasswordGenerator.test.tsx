@@ -79,7 +79,6 @@ describe('PasswordGenerator', () => {
 
     await waitFor(() => {
       const newPassword = passwordInput.value;
-      // New password should be generated (might be same in rare cases)
       expect(newPassword).not.toBe('');
     });
   });
@@ -105,7 +104,6 @@ describe('PasswordGenerator', () => {
   it('shows error when all character types are unchecked', async () => {
     render(<PasswordGenerator />);
 
-    // Uncheck all options
     fireEvent.click(screen.getByTestId('uppercase-checkbox'));
     fireEvent.click(screen.getByTestId('lowercase-checkbox'));
     fireEvent.click(screen.getByTestId('numbers-checkbox'));
