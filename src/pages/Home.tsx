@@ -33,6 +33,12 @@ function Home(): JSX.Element {
       icon: '🔐',
       link: '/password-generator',
     },
+    {
+      title: 'Badminton Manager',
+      description: 'Manage your badminton games, players, and tournaments.',
+      icon: '🏸',
+      link: '/badminton-manager',
+    },
   ];
 
   return (

@@ -7,6 +7,7 @@ import HexRgbConverter from './pages/hex-rgb-converter';
 import VolumeConverter from './pages/volume-converter';
 import MeasurementConverter from './pages/measurement-converter';
 import PasswordGenerator from './pages/password-generator';
+import BadmintonManager from './pages/badminton-manager';
 import NotFound from './pages/NotFound';
 
 function App(): JSX.Element {
@@ -21,6 +22,7 @@ function App(): JSX.Element {
             <Route path="/volume-converter" element={<VolumeConverter />} />
             <Route path="/measurement-converter" element={<MeasurementConverter />} />
             <Route path="/password-generator" element={<PasswordGenerator />} />
+            <Route path="/badminton-manager" element={<BadmintonManager />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
