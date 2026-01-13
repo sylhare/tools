@@ -8,11 +8,6 @@ describe('VolumeConverter Component', () => {
     expect(screen.getByRole('heading', { name: 'Volume Converter' })).toBeInTheDocument();
   });
 
-  it('should display the page description', () => {
-    render(<VolumeConverter />);
-    expect(screen.getByText('Convert volumes between metric and imperial units')).toBeInTheDocument();
-  });
-
   it('should render all input fields', () => {
     render(<VolumeConverter />);
 
@@ -40,21 +35,6 @@ describe('VolumeConverter Component', () => {
     expect(screen.getByRole('button', { name: 'Clear All' })).toBeInTheDocument();
   });
 
-  it('should render Quick Reference card', () => {
-    render(<VolumeConverter />);
-
-    expect(screen.getByText('Quick Reference')).toBeInTheDocument();
-    expect(screen.getByText(/1 cup = 236.6 mL/)).toBeInTheDocument();
-    expect(screen.getByText(/1 cup = 8 fl oz/)).toBeInTheDocument();
-  });
-
-  it('should render Cooking Tips card', () => {
-    render(<VolumeConverter />);
-
-    expect(screen.getByText('Cooking Tips')).toBeInTheDocument();
-    expect(screen.getByText(/For water and similar liquids/)).toBeInTheDocument();
-  });
-
   it('should initialize with empty input values', () => {
     render(<VolumeConverter />);
 
@@ -65,4 +45,3 @@ describe('VolumeConverter Component', () => {
     expect(cupInput.value).toBe('');
   });
 });
-

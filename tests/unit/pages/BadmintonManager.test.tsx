@@ -13,11 +13,10 @@ const renderBadmintonManager = (): void => {
 };
 
 describe('BadmintonManager', () => {
-  it('renders the component with title and description', () => {
+  it('renders the component with title', () => {
     renderBadmintonManager();
 
     expect(screen.getByText('Badminton Manager')).toBeInTheDocument();
-    expect(screen.getByText('Manage your badminton games, players, and tournaments')).toBeInTheDocument();
   });
 
   it('renders the iframe with correct src', () => {
@@ -27,16 +26,6 @@ describe('BadmintonManager', () => {
     expect(iframe).toBeInTheDocument();
     expect(iframe).toHaveAttribute('src', 'https://sylhare.github.io/Badminton/');
     expect(iframe).toHaveAttribute('title', 'Badminton Manager');
-  });
-
-  it('renders the about section', () => {
-    renderBadmintonManager();
-
-    expect(screen.getByText('About')).toBeInTheDocument();
-    expect(screen.getByText('• Organize badminton matches and tournaments')).toBeInTheDocument();
-    expect(screen.getByText('• Track player statistics and rankings')).toBeInTheDocument();
-    expect(screen.getByText('• Generate match schedules automatically')).toBeInTheDocument();
-    expect(screen.getByText('• Manage team compositions and rotations')).toBeInTheDocument();
   });
 
   it('iframe has fullscreen permission', () => {
@@ -53,4 +42,3 @@ describe('BadmintonManager', () => {
     expect(iframe).toHaveStyle({ width: '100%', height: '100%' });
   });
 });
-

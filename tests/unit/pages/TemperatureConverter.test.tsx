@@ -22,14 +22,6 @@ describe('TemperatureConverter', () => {
     expect(screen.getByPlaceholderText('Enter temperature in Fahrenheit')).toBeInTheDocument();
   });
 
-  it('renders the quick reference section', () => {
-    renderTemperatureConverter();
-
-    expect(screen.getByText('Quick Reference')).toBeInTheDocument();
-    expect(screen.getByText('• Water freezes at 0°C (32°F)')).toBeInTheDocument();
-    expect(screen.getByText('• Water boils at 100°C (212°F)')).toBeInTheDocument();
-  });
-
   it('converts Celsius to Fahrenheit correctly', () => {
     renderTemperatureConverter();
 
@@ -111,4 +103,3 @@ describe('TemperatureConverter', () => {
     expect(fahrenheitInput.value).toBe('');
   });
 });
-

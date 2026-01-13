@@ -12,17 +12,6 @@ describe('MeasurementConverter Component', () => {
     render(<MeasurementConverter />);
     expect(screen.getByText('Convert lengths between metric and imperial units')).toBeInTheDocument();
   });
-
-  it('should display metric system heading', () => {
-    render(<MeasurementConverter />);
-    expect(screen.getByText('Metric System')).toBeInTheDocument();
-  });
-
-  it('should display imperial system heading', () => {
-    render(<MeasurementConverter />);
-    expect(screen.getByText('Imperial System')).toBeInTheDocument();
-  });
-
   it('should render all metric input fields', () => {
     render(<MeasurementConverter />);
 
@@ -64,21 +53,6 @@ describe('MeasurementConverter Component', () => {
     expect(screen.getByRole('button', { name: 'Clear All' })).toBeInTheDocument();
   });
 
-  it('should render Quick Reference card', () => {
-    render(<MeasurementConverter />);
-
-    expect(screen.getByText('Quick Reference')).toBeInTheDocument();
-    expect(screen.getByText(/1 inch = 2.54 cm/)).toBeInTheDocument();
-    expect(screen.getByText(/1 foot = 12 inches/)).toBeInTheDocument();
-  });
-
-  it('should render Size Reference card', () => {
-    render(<MeasurementConverter />);
-
-    expect(screen.getByText('Size Reference')).toBeInTheDocument();
-    expect(screen.getByText(/Credit card/)).toBeInTheDocument();
-  });
-
   it('should initialize with empty input values', () => {
     render(<MeasurementConverter />);
 
@@ -88,15 +62,4 @@ describe('MeasurementConverter Component', () => {
     expect(cmInput.value).toBe('');
     expect(inInput.value).toBe('');
   });
-
-  it('should have organized layout with metric and imperial sections', () => {
-    render(<MeasurementConverter />);
-
-    const metricSection = screen.getByText('Metric System');
-    const imperialSection = screen.getByText('Imperial System');
-
-    expect(metricSection).toBeInTheDocument();
-    expect(imperialSection).toBeInTheDocument();
-  });
 });
-

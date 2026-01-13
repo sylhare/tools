@@ -121,4 +121,3 @@ describe('PasswordGenerator', () => {
     expect(screen.getByTestId('length-display')).toHaveTextContent('16 characters');
   });
 });
-

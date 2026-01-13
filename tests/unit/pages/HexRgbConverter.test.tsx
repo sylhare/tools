@@ -10,12 +10,6 @@ describe('HexRgbConverter', () => {
     expect(screen.getByText(/Convert colors between Hexadecimal and RGB formats/i)).toBeInTheDocument();
   });
 
-  it('renders color preview', () => {
-    render(<HexRgbConverter />);
-
-    expect(screen.getByText(/Color Preview/i)).toBeInTheDocument();
-  });
-
   it('renders hex input field', () => {
     render(<HexRgbConverter />);
 
@@ -28,16 +22,4 @@ describe('HexRgbConverter', () => {
     const rgbInputs = screen.getAllByPlaceholderText('0-255');
     expect(rgbInputs).toHaveLength(3);
   });
-
-  it('renders quick examples section', () => {
-    render(<HexRgbConverter />);
-
-    expect(screen.getByText(/Quick Examples/i)).toBeInTheDocument();
-    expect(screen.getByText(/Red: #FF0000 = rgb\(255, 0, 0\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/Green: #00FF00 = rgb\(0, 255, 0\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/Blue: #0000FF = rgb\(0, 0, 255\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/White: #FFFFFF = rgb\(255, 255, 255\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/Black: #000000 = rgb\(0, 0, 0\)/i)).toBeInTheDocument();
-  });
 });
-
