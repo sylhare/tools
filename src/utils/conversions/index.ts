@@ -23,6 +23,7 @@ export {
   lengthUnits,
   weightUnits,
   temperatureUnits,
+  timeUnits,
   getBaseUnit,
   getUnitsForCategory,
 } from './units';
