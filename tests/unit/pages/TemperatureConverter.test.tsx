@@ -50,7 +50,7 @@ describe('TemperatureConverter', () => {
     expect(celsiusInput).toHaveValue(100);
 
     fireEvent.change(fahrenheitInput, { target: { value: '98.6' } });
-    expect(parseFloat(celsiusInput.value)).toBeCloseTo(37, 0);
+    expect(celsiusInput).toHaveValue(37);
   });
 
   it('handles decimal values correctly', () => {
@@ -60,10 +60,10 @@ describe('TemperatureConverter', () => {
     const fahrenheitInput = screen.getByPlaceholderText('Enter temperature in Fahrenheit');
 
     fireEvent.change(celsiusInput, { target: { value: '20.5' } });
-    expect(parseFloat(fahrenheitInput.value)).toBeCloseTo(68.9, 1);
+    expect(fahrenheitInput).toHaveValue(68.9);
 
     fireEvent.change(fahrenheitInput, { target: { value: '75.5' } });
-    expect(parseFloat(celsiusInput.value)).toBeCloseTo(24.17, 1);
+    expect(celsiusInput).toHaveValue(24.17);
   });
 
   it('clears the other input when one is cleared', () => {
@@ -73,10 +73,10 @@ describe('TemperatureConverter', () => {
     const fahrenheitInput = screen.getByPlaceholderText('Enter temperature in Fahrenheit');
 
     fireEvent.change(celsiusInput, { target: { value: '25' } });
-    expect(fahrenheitInput.value).not.toBe('');
+    expect(fahrenheitInput).not.toHaveValue(null);
 
     fireEvent.change(celsiusInput, { target: { value: '' } });
-    expect(fahrenheitInput.value).toBe('');
+    expect(fahrenheitInput).toHaveValue(null);
   });
 
   it('handles negative temperatures correctly', () => {
@@ -86,10 +86,10 @@ describe('TemperatureConverter', () => {
     const fahrenheitInput = screen.getByPlaceholderText('Enter temperature in Fahrenheit');
 
     fireEvent.change(celsiusInput, { target: { value: '-10' } });
-    expect(parseFloat(fahrenheitInput.value)).toBeCloseTo(14, 1);
+    expect(fahrenheitInput).toHaveValue(14);
 
     fireEvent.change(fahrenheitInput, { target: { value: '-20' } });
-    expect(parseFloat(celsiusInput.value)).toBeCloseTo(-28.89, 1);
+    expect(celsiusInput).toHaveValue(-28.89);
   });
 
   it('handles partial input like minus sign', () => {
@@ -99,6 +99,6 @@ describe('TemperatureConverter', () => {
     const fahrenheitInput = screen.getByPlaceholderText('Enter temperature in Fahrenheit');
 
     fireEvent.change(celsiusInput, { target: { value: '-' } });
-    expect(fahrenheitInput.value).toBe('');
+    expect(fahrenheitInput).toHaveValue(null);
   });
 });

@@ -30,10 +30,10 @@ describe('TimeConverter Component', () => {
   it('should initialize with empty input values', () => {
     render(<TimeConverter />);
 
-    const secondsInput = screen.getByPlaceholderText('Enter s') as HTMLInputElement;
-    const minutesInput = screen.getByPlaceholderText('Enter min') as HTMLInputElement;
+    const secondsInput = screen.getByPlaceholderText('Enter s');
+    const minutesInput = screen.getByPlaceholderText('Enter min');
 
-    expect(secondsInput.value).toBe('');
-    expect(minutesInput.value).toBe('');
+    expect(secondsInput).toHaveValue(null);
+    expect(minutesInput).toHaveValue(null);
   });
 });

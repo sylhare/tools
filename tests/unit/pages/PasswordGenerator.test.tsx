@@ -60,8 +60,8 @@ describe('PasswordGenerator', () => {
     render(<PasswordGenerator />);
 
     await waitFor(() => {
-      const passwordInput = screen.getByTestId('password-output') as HTMLInputElement;
-      expect(passwordInput.value).not.toBe('');
+      const passwordInput = screen.getByTestId('password-output');
+      expect(passwordInput).not.toHaveValue('');
     });
   });
 
@@ -69,17 +69,16 @@ describe('PasswordGenerator', () => {
     render(<PasswordGenerator />);
 
     await waitFor(() => {
-      const passwordInput = screen.getByTestId('password-output') as HTMLInputElement;
-      expect(passwordInput.value).not.toBe('');
+      const passwordInput = screen.getByTestId('password-output');
+      expect(passwordInput).not.toHaveValue('');
     });
 
-    const passwordInput = screen.getByTestId('password-output') as HTMLInputElement;
+    const passwordInput = screen.getByTestId('password-output');
     const generateButton = screen.getByTestId('generate-button');
     fireEvent.click(generateButton);
 
     await waitFor(() => {
-      const newPassword = passwordInput.value;
-      expect(newPassword).not.toBe('');
+      expect(passwordInput).not.toHaveValue('');
     });
   });
 
