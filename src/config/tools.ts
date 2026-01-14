@@ -31,6 +31,12 @@ export const tools: Tool[] = [
     link: '/measurement-converter',
   },
   {
+    title: 'Time Converter',
+    description: 'Convert time between seconds, minutes, hours, days, months, and years.',
+    icon: '⏱️',
+    link: '/time-converter',
+  },
+  {
     title: 'Password Generator',
     description: 'Generate secure passwords with customizable options and strength indicator.',
     icon: '🔐',
