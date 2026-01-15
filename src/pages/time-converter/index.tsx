@@ -1,6 +1,6 @@
 import { Flex, Heading, Text, Card, TextField, Button, Grid } from '@radix-ui/themes';
 import { useConverter } from '../../utils/conversions';
-import { timeConverter, selectedUnits, unitConfig } from './config';
+import { timeConverter, selectedUnits, unitConfig, formatTimestamp, formatISOTimestamp } from './config';
 
 function TimeConverter(): JSX.Element {
   const { values, handlers, clearAll } = useConverter({
@@ -8,6 +8,9 @@ function TimeConverter(): JSX.Element {
     units: selectedUnits,
     defaultPrecision: 2,
   });
+
+  const msValue = values.ms ? parseFloat(values.ms) : null;
+  const hasValidTimestamp = msValue !== null && !isNaN(msValue);
 
   return (
     <Flex direction="column" gap="6" py="6">
@@ -51,6 +54,41 @@ function TimeConverter(): JSX.Element {
               Clear All
             </Button>
           </Flex>
+        </Flex>
+      </Card>
+
+      <Card style={{ maxWidth: '800px' }}>
+        <Flex direction="column" gap="3" p="4">
+          <Text size="3" weight="bold">📅 Timestamp to Date</Text>
+          <Text size="2" color="gray">
+            Enter a value in milliseconds above to see the corresponding date
+          </Text>
+          {hasValidTimestamp ? (
+            <Flex direction="column" gap="2">
+              <Flex direction="column" gap="1">
+                <Text size="2" weight="medium">Local Time:</Text>
+                <TextField.Root
+                  value={formatTimestamp(msValue)}
+                  readOnly
+                  size="2"
+                  data-testid="timestamp-local"
+                />
+              </Flex>
+              <Flex direction="column" gap="1">
+                <Text size="2" weight="medium">ISO 8601:</Text>
+                <TextField.Root
+                  value={formatISOTimestamp(msValue)}
+                  readOnly
+                  size="2"
+                  data-testid="timestamp-iso"
+                />
+              </Flex>
+            </Flex>
+          ) : (
+            <Text size="2" color="gray" style={{ fontStyle: 'italic' }}>
+              No timestamp entered
+            </Text>
+          )}
         </Flex>
       </Card>
 

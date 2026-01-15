@@ -26,6 +26,28 @@ export const timeConverter = new RatioConverter({
   defaultPrecision: 2,
 });
 
+export function formatTimestamp(ms: number): string {
+  const date = new Date(ms);
+  if (isNaN(date.getTime())) return 'Invalid timestamp';
+
+  return date.toLocaleString(undefined, {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short',
+  });
+}
+
+export function formatISOTimestamp(ms: number): string {
+  const date = new Date(ms);
+  if (isNaN(date.getTime())) return '';
+  return date.toISOString();
+}
+
 export const unitConfig = [
   { id: 'ms', label: 'Milliseconds', placeholder: 'Enter ms' },
   { id: 's', label: 'Seconds', placeholder: 'Enter s' },
