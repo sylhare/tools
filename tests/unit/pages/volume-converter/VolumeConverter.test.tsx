@@ -38,10 +38,10 @@ describe('VolumeConverter Component', () => {
   it('should initialize with empty input values', () => {
     render(<VolumeConverter />);
 
-    const mlInput = screen.getByPlaceholderText('Enter mL') as HTMLInputElement;
-    const cupInput = screen.getByPlaceholderText('Enter cups') as HTMLInputElement;
+    const mlInput = screen.getByPlaceholderText('Enter mL');
+    const cupInput = screen.getByPlaceholderText('Enter cups');
 
-    expect(mlInput.value).toBe('');
-    expect(cupInput.value).toBe('');
+    expect(mlInput).toHaveValue(null);
+    expect(cupInput).toHaveValue(null);
   });
 });

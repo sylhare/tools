@@ -12,6 +12,7 @@ export enum UnitCategory {
   Length = 'length',
   Weight = 'weight',
   Temperature = 'temperature',
+  Time = 'time',
 }
 
 /**

@@ -6,6 +6,7 @@ import TemperatureConverter from './pages/temperature-converter';
 import HexRgbConverter from './pages/hex-rgb-converter';
 import VolumeConverter from './pages/volume-converter';
 import MeasurementConverter from './pages/measurement-converter';
+import TimeConverter from './pages/time-converter';
 import PasswordGenerator from './pages/password-generator';
 import BadmintonManager from './pages/badminton-manager';
 import NotFound from './pages/NotFound';
@@ -21,6 +22,7 @@ function App(): JSX.Element {
             <Route path="/hex-rgb-converter" element={<HexRgbConverter />} />
             <Route path="/volume-converter" element={<VolumeConverter />} />
             <Route path="/measurement-converter" element={<MeasurementConverter />} />
+            <Route path="/time-converter" element={<TimeConverter />} />
             <Route path="/password-generator" element={<PasswordGenerator />} />
             <Route path="/badminton-manager" element={<BadmintonManager />} />
             <Route path="*" element={<NotFound />} />

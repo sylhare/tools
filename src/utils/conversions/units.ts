@@ -239,6 +239,78 @@ export const temperatureUnits: Unit[] = [
 ];
 
 /**
+ * Time unit definitions
+ * Base unit: Seconds (s)
+ */
+export const timeUnits: Unit[] = [
+  {
+    id: 'ms',
+    name: 'Milliseconds',
+    symbol: 'ms',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value / 1000,
+    fromBase: (value: number) => value * 1000,
+  },
+  {
+    id: 's',
+    name: 'Seconds',
+    symbol: 's',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value,
+    fromBase: (value: number) => value,
+    isBase: true,
+  },
+  {
+    id: 'min',
+    name: 'Minutes',
+    symbol: 'min',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value * 60,
+    fromBase: (value: number) => value / 60,
+  },
+  {
+    id: 'hr',
+    name: 'Hours',
+    symbol: 'hr',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value * 3600,
+    fromBase: (value: number) => value / 3600,
+  },
+  {
+    id: 'day',
+    name: 'Days',
+    symbol: 'd',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value * 86400,
+    fromBase: (value: number) => value / 86400,
+  },
+  {
+    id: 'week',
+    name: 'Weeks',
+    symbol: 'wk',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value * 604800,
+    fromBase: (value: number) => value / 604800,
+  },
+  {
+    id: 'month',
+    name: 'Months',
+    symbol: 'mo',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value * 2629746, // Average month (365.25 days / 12)
+    fromBase: (value: number) => value / 2629746,
+  },
+  {
+    id: 'year',
+    name: 'Years',
+    symbol: 'yr',
+    category: UnitCategory.Time,
+    toBase: (value: number) => value * 31556952, // 365.25 days
+    fromBase: (value: number) => value / 31556952,
+  },
+];
+
+/**
  * Get base unit for a category
  */
 export function getBaseUnit(category: UnitCategory): Unit {
@@ -251,6 +323,8 @@ export function getBaseUnit(category: UnitCategory): Unit {
       return weightUnits.find(u => u.isBase)!;
     case UnitCategory.Temperature:
       return temperatureUnits.find(u => u.isBase)!;
+    case UnitCategory.Time:
+      return timeUnits.find(u => u.isBase)!;
     default:
       throw new Error(`Unknown category: ${category}`);
   }
@@ -269,6 +343,8 @@ export function getUnitsForCategory(category: UnitCategory): Unit[] {
       return weightUnits;
     case UnitCategory.Temperature:
       return temperatureUnits;
+    case UnitCategory.Time:
+      return timeUnits;
     default:
       throw new Error(`Unknown category: ${category}`);
   }

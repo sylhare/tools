@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { IntervalConverter } from '../../../../src/utils/conversions/IntervalConverter';
 import { Unit, UnitCategory } from '../../../../src/utils/conversions/types';
 

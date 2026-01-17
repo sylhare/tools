@@ -56,10 +56,10 @@ describe('MeasurementConverter Component', () => {
   it('should initialize with empty input values', () => {
     render(<MeasurementConverter />);
 
-    const cmInput = screen.getByPlaceholderText('Enter cm') as HTMLInputElement;
-    const inInput = screen.getByPlaceholderText('Enter in') as HTMLInputElement;
+    const cmInput = screen.getByPlaceholderText('Enter cm');
+    const inInput = screen.getByPlaceholderText('Enter in');
 
-    expect(cmInput.value).toBe('');
-    expect(inInput.value).toBe('');
+    expect(cmInput).toHaveValue(null);
+    expect(inInput).toHaveValue(null);
   });
 });
