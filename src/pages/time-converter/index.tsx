@@ -61,9 +61,20 @@ function TimeConverter(): JSX.Element {
         <Flex direction="column" gap="3" p="4">
           <Text size="3" weight="bold">📅 Timestamp to Date</Text>
           <Text size="2" color="gray">
-            Enter a value in milliseconds above to see the corresponding date
+            Enter a timestamp in milliseconds to see the corresponding date
           </Text>
-          {hasValidTimestamp ? (
+          <Flex direction="column" gap="1">
+            <Text size="2" weight="medium">Timestamp (ms):</Text>
+            <TextField.Root
+              type="number"
+              placeholder="e.g. 1706400000000"
+              value={values.ms || ''}
+              onChange={handlers.ms}
+              size="2"
+              data-testid="timestamp-input"
+            />
+          </Flex>
+          {hasValidTimestamp && (
             <Flex direction="column" gap="2">
               <Flex direction="column" gap="1">
                 <Text size="2" weight="medium">Local Time:</Text>
@@ -84,10 +95,6 @@ function TimeConverter(): JSX.Element {
                 />
               </Flex>
             </Flex>
-          ) : (
-            <Text size="2" color="gray" style={{ fontStyle: 'italic' }}>
-              No timestamp entered
-            </Text>
           )}
         </Flex>
       </Card>

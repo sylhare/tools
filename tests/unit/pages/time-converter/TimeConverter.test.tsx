@@ -92,15 +92,16 @@ describe('TimeConverter Component', () => {
     expect(minutesInput).toHaveValue(null);
   });
 
-  it('should render timestamp to date section', () => {
+  it('should render timestamp to date section with input field', () => {
     render(<TimeConverter />);
 
     expect(screen.getByText('📅 Timestamp to Date')).toBeInTheDocument();
-    expect(screen.getByText('Enter a value in milliseconds above to see the corresponding date')).toBeInTheDocument();
-    expect(screen.getByText('No timestamp entered')).toBeInTheDocument();
+    expect(screen.getByText('Enter a timestamp in milliseconds to see the corresponding date')).toBeInTheDocument();
+    expect(screen.getByTestId('timestamp-input')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('e.g. 1706400000000')).toBeInTheDocument();
   });
 
-  it('should display formatted date when milliseconds are entered', () => {
+  it('should display formatted date when milliseconds are entered in grid', () => {
     render(<TimeConverter />);
 
     const msInput = screen.getByPlaceholderText('Enter ms');
@@ -108,7 +109,18 @@ describe('TimeConverter Component', () => {
 
     expect(screen.getByTestId('timestamp-local')).toBeInTheDocument();
     expect(screen.getByTestId('timestamp-iso')).toHaveValue('2024-01-01T00:00:00.000Z');
+  });
 
-    expect(screen.queryByText('No timestamp entered')).not.toBeInTheDocument();
+  it('should display formatted date when timestamp is pasted in dedicated input', () => {
+    render(<TimeConverter />);
+
+    const timestampInput = screen.getByTestId('timestamp-input');
+    fireEvent.change(timestampInput, { target: { value: '1704067200000' } });
+
+    expect(screen.getByTestId('timestamp-local')).toBeInTheDocument();
+    expect(screen.getByTestId('timestamp-iso')).toHaveValue('2024-01-01T00:00:00.000Z');
+    
+    // Should also sync with the ms input in the grid
+    expect(screen.getByPlaceholderText('Enter ms')).toHaveValue(1704067200000);
   });
 });
