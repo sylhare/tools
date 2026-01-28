@@ -119,4 +119,72 @@ describe('PasswordGenerator', () => {
 
     expect(screen.getByTestId('length-display')).toHaveTextContent('16 characters');
   });
+
+  it('shows special character customization toggle when special chars enabled', () => {
+    render(<PasswordGenerator />);
+
+    expect(screen.getByTestId('special-chars-toggle')).toBeInTheDocument();
+    expect(screen.getByText(/Customize characters/)).toBeInTheDocument();
+  });
+
+  it('expands special character panel when toggle is clicked', async () => {
+    render(<PasswordGenerator />);
+
+    const toggle = screen.getByTestId('special-chars-toggle');
+    fireEvent.click(toggle);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('special-chars-panel')).toBeInTheDocument();
+      expect(screen.getByTestId('special-chars-all')).toBeInTheDocument();
+      expect(screen.getByTestId('special-chars-none')).toBeInTheDocument();
+      expect(screen.getByTestId('special-chars-common')).toBeInTheDocument();
+    });
+  });
+
+  it('hides special character customization when special chars disabled', async () => {
+    render(<PasswordGenerator />);
+
+    fireEvent.click(screen.getByTestId('special-checkbox'));
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('special-chars-toggle')).not.toBeInTheDocument();
+    });
+  });
+
+  it('selects common special characters when common button clicked', async () => {
+    render(<PasswordGenerator />);
+
+    const toggle = screen.getByTestId('special-chars-toggle');
+    fireEvent.click(toggle);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('special-chars-panel')).toBeInTheDocument();
+    });
+
+    const commonButton = screen.getByTestId('special-chars-common');
+    fireEvent.click(commonButton);
+
+    await waitFor(() => {
+      // COMMON_SPECIAL_CHARS = '!@#$%^&*?' = 9 characters
+      expect(screen.getByText(/9 selected/)).toBeInTheDocument();
+    });
+  });
+
+  it('clears all special characters when none button clicked', async () => {
+    render(<PasswordGenerator />);
+
+    const toggle = screen.getByTestId('special-chars-toggle');
+    fireEvent.click(toggle);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('special-chars-panel')).toBeInTheDocument();
+    });
+
+    const noneButton = screen.getByTestId('special-chars-none');
+    fireEvent.click(noneButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/0 selected/)).toBeInTheDocument();
+    });
+  });
 });

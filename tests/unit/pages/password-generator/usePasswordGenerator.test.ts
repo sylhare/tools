@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { usePasswordGenerator } from '../../../../src/pages/password-generator/usePasswordGenerator';
+import { usePasswordGenerator, ALL_SPECIAL_CHARS, COMMON_SPECIAL_CHARS } from '../../../../src/pages/password-generator/usePasswordGenerator';
 
 describe('usePasswordGenerator', () => {
   beforeEach(() => {
@@ -16,11 +16,19 @@ describe('usePasswordGenerator', () => {
       expect(result.current.options.includeLowercase).toBe(true);
       expect(result.current.options.includeNumbers).toBe(true);
       expect(result.current.options.includeSpecialChars).toBe(true);
+      expect(result.current.options.selectedSpecialChars.size).toBe(ALL_SPECIAL_CHARS.length);
     });
 
     it('initializes with empty password', () => {
       const { result } = renderHook(() => usePasswordGenerator());
       expect(result.current.password).toBe('');
+    });
+
+    it('initializes with all special characters selected', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+      ALL_SPECIAL_CHARS.split('').forEach(char => {
+        expect(result.current.options.selectedSpecialChars.has(char)).toBe(true);
+      });
     });
   });
 
@@ -245,6 +253,104 @@ describe('usePasswordGenerator', () => {
       });
 
       expect(result.current.options.includeSpecialChars).toBe(false);
+    });
+  });
+
+  describe('special character selection', () => {
+    it('toggles individual special character', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+
+      expect(result.current.options.selectedSpecialChars.has('!')).toBe(true);
+
+      act(() => {
+        result.current.toggleSpecialChar('!');
+      });
+
+      expect(result.current.options.selectedSpecialChars.has('!')).toBe(false);
+
+      act(() => {
+        result.current.toggleSpecialChar('!');
+      });
+
+      expect(result.current.options.selectedSpecialChars.has('!')).toBe(true);
+    });
+
+    it('selects all special characters', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+
+      act(() => {
+        result.current.selectNoSpecialChars();
+      });
+
+      expect(result.current.options.selectedSpecialChars.size).toBe(0);
+
+      act(() => {
+        result.current.selectAllSpecialChars();
+      });
+
+      expect(result.current.options.selectedSpecialChars.size).toBe(ALL_SPECIAL_CHARS.length);
+      ALL_SPECIAL_CHARS.split('').forEach(char => {
+        expect(result.current.options.selectedSpecialChars.has(char)).toBe(true);
+      });
+    });
+
+    it('selects no special characters', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+
+      act(() => {
+        result.current.selectNoSpecialChars();
+      });
+
+      expect(result.current.options.selectedSpecialChars.size).toBe(0);
+    });
+
+    it('selects common special characters', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+
+      act(() => {
+        result.current.selectCommonSpecialChars();
+      });
+
+      expect(result.current.options.selectedSpecialChars.size).toBe(COMMON_SPECIAL_CHARS.length);
+      COMMON_SPECIAL_CHARS.split('').forEach(char => {
+        expect(result.current.options.selectedSpecialChars.has(char)).toBe(true);
+      });
+    });
+
+    it('generates password with only selected special characters', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+
+      act(() => {
+        result.current.setIncludeUppercase(false);
+        result.current.setIncludeLowercase(false);
+        result.current.setIncludeNumbers(false);
+        result.current.selectNoSpecialChars();
+        result.current.toggleSpecialChar('!');
+        result.current.toggleSpecialChar('@');
+      });
+
+      act(() => {
+        result.current.generatePassword();
+      });
+
+      expect(result.current.password).toMatch(/^[!@]+$/);
+    });
+
+    it('generates empty password when special chars enabled but none selected', () => {
+      const { result } = renderHook(() => usePasswordGenerator());
+
+      act(() => {
+        result.current.setIncludeUppercase(false);
+        result.current.setIncludeLowercase(false);
+        result.current.setIncludeNumbers(false);
+        result.current.selectNoSpecialChars();
+      });
+
+      act(() => {
+        result.current.generatePassword();
+      });
+
+      expect(result.current.password).toBe('');
     });
   });
 
