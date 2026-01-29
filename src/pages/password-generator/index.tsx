@@ -19,7 +19,7 @@ function PasswordGenerator(): JSX.Element {
     copyToClipboard,
     getPasswordStrength,
   } = usePasswordGenerator();
-  
+
   const [specialCharsExpanded, setSpecialCharsExpanded] = useState(false);
 
   // Generate initial password on mount
