@@ -1,6 +1,6 @@
-import { Flex, Heading, Text, Card, TextField, Button, Checkbox, Slider } from '@radix-ui/themes';
-import { usePasswordGenerator } from './usePasswordGenerator';
-import { useEffect } from 'react';
+import { Flex, Heading, Text, Card, TextField, Button, Checkbox, Slider, Box } from '@radix-ui/themes';
+import { usePasswordGenerator, ALL_SPECIAL_CHARS, COMMON_SPECIAL_CHARS } from './usePasswordGenerator';
+import { useEffect, useState } from 'react';
 
 function PasswordGenerator(): JSX.Element {
   const {
@@ -11,10 +11,16 @@ function PasswordGenerator(): JSX.Element {
     setIncludeLowercase,
     setIncludeNumbers,
     setIncludeSpecialChars,
+    toggleSpecialChar,
+    selectAllSpecialChars,
+    selectNoSpecialChars,
+    selectCommonSpecialChars,
     generatePassword,
     copyToClipboard,
     getPasswordStrength,
   } = usePasswordGenerator();
+
+  const [specialCharsExpanded, setSpecialCharsExpanded] = useState(false);
 
   // Generate initial password on mount
   useEffect(() => {
@@ -174,6 +180,91 @@ function PasswordGenerator(): JSX.Element {
               />
               <Text size="2">Special Characters (!@#$%^&*...)</Text>
             </Flex>
+
+            {/* Collapsible Special Character Selector */}
+            {options.includeSpecialChars && (
+              <Box pl="6">
+                <Flex
+                  align="center"
+                  gap="1"
+                  style={{ cursor: 'pointer', userSelect: 'none' }}
+                  onClick={() => setSpecialCharsExpanded(!specialCharsExpanded)}
+                  data-testid="special-chars-toggle"
+                >
+                  <Text size="2" color="gray" style={{ fontFamily: 'monospace', width: '12px' }}>
+                    {specialCharsExpanded ? '▼' : '▶'}
+                  </Text>
+                  <Text size="2" color="gray">
+                    Customize characters ({options.selectedSpecialChars.size} selected)
+                  </Text>
+                </Flex>
+
+                {specialCharsExpanded && (
+                  <Box mt="3" data-testid="special-chars-panel">
+                    {/* Quick selection buttons */}
+                    <Flex gap="2" mb="3">
+                      <Button
+                        size="1"
+                        variant="soft"
+                        onClick={selectAllSpecialChars}
+                        data-testid="special-chars-all"
+                      >
+                        All
+                      </Button>
+                      <Button
+                        size="1"
+                        variant="soft"
+                        onClick={selectNoSpecialChars}
+                        data-testid="special-chars-none"
+                      >
+                        None
+                      </Button>
+                      <Button
+                        size="1"
+                        variant="soft"
+                        onClick={selectCommonSpecialChars}
+                        data-testid="special-chars-common"
+                        title={`Common: ${COMMON_SPECIAL_CHARS}`}
+                      >
+                        Common ({COMMON_SPECIAL_CHARS})
+                      </Button>
+                    </Flex>
+
+                    {/* Individual character checkboxes */}
+                    <Flex wrap="wrap" gap="2">
+                      {ALL_SPECIAL_CHARS.split('').map(char => (
+                        <Flex
+                          key={char}
+                          align="center"
+                          gap="1"
+                          style={{
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            backgroundColor: options.selectedSpecialChars.has(char)
+                              ? 'var(--accent-3)'
+                              : 'var(--gray-3)',
+                            cursor: 'pointer',
+                            minWidth: '40px',
+                            justifyContent: 'center',
+                          }}
+                          onClick={() => toggleSpecialChar(char)}
+                          data-testid={`special-char-${char.charCodeAt(0)}`}
+                        >
+                          <Checkbox
+                            size="1"
+                            checked={options.selectedSpecialChars.has(char)}
+                            onCheckedChange={() => toggleSpecialChar(char)}
+                          />
+                          <Text size="2" weight="medium" style={{ fontFamily: 'monospace' }}>
+                            {char}
+                          </Text>
+                        </Flex>
+                      ))}
+                    </Flex>
+                  </Box>
+                )}
+              </Box>
+            )}
           </Flex>
 
           {!hasAtLeastOneOption && (

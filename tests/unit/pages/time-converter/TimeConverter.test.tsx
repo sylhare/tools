@@ -119,7 +119,7 @@ describe('TimeConverter Component', () => {
 
     expect(screen.getByTestId('timestamp-local')).toBeInTheDocument();
     expect(screen.getByTestId('timestamp-iso')).toHaveValue('2024-01-01T00:00:00.000Z');
-    
+
     // Should also sync with the ms input in the grid
     expect(screen.getByPlaceholderText('Enter ms')).toHaveValue(1704067200000);
   });
