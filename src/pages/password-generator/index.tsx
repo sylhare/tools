@@ -253,7 +253,7 @@ function PasswordGenerator(): JSX.Element {
                           <Checkbox
                             size="1"
                             checked={options.selectedSpecialChars.has(char)}
-                            onCheckedChange={() => toggleSpecialChar(char)}
+                            onCheckedChange={() => {}}
                           />
                           <Text size="2" weight="medium" style={{ fontFamily: 'monospace' }}>
                             {char}
