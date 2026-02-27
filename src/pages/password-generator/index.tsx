@@ -247,13 +247,12 @@ function PasswordGenerator(): JSX.Element {
                             minWidth: '40px',
                             justifyContent: 'center',
                           }}
-                          onClick={() => toggleSpecialChar(char)}
                           data-testid={`special-char-${char.charCodeAt(0)}`}
                         >
                           <Checkbox
                             size="1"
                             checked={options.selectedSpecialChars.has(char)}
-                            onCheckedChange={() => {}}
+                            onCheckedChange={() => toggleSpecialChar(char)}
                           />
                           <Text size="2" weight="medium" style={{ fontFamily: 'monospace' }}>
                             {char}
