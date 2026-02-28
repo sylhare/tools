@@ -29,8 +29,8 @@ devDependencies:
     specifier: ^16.3.2
     version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7)(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1)
   '@types/node':
-    specifier: ^25.0.7
-    version: 25.0.7
+    specifier: ^25.3.2
+    version: 25.3.2
   '@types/react':
     specifier: ^18.3.12
     version: 18.3.27
@@ -63,10 +63,10 @@ devDependencies:
     version: 5.9.3
   vite:
     specifier: ^7.2.7
-    version: 7.2.7(@types/node@25.0.7)
+    version: 7.2.7(@types/node@25.3.2)
   vitest:
     specifier: ^4.0.18
-    version: 4.0.18(@types/node@25.0.7)(@vitest/ui@4.0.18)(jsdom@28.1.0)
+    version: 4.0.18(@types/node@25.3.2)(@vitest/ui@4.0.18)(jsdom@28.1.0)
 
 packages:
 
@@ -2427,10 +2427,10 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
-  /@types/node@25.0.7:
-    resolution: {integrity: sha512-C/er7DlIZgRJO7WtTdYovjIFzGsz0I95UlMyR9anTb4aCpBSRWe5Jc1/RvLKUfzmOxHPGjSE5+63HgLtndxU4w==}
+  /@types/node@25.3.2:
+    resolution: {integrity: sha512-RpV6r/ij22zRRdyBPcxDeKAzH43phWVKEjL2iksqo1Vz3CuBUrgmPpPhALKiRfU7OMCmeeO9vECBMsV0hMTG8Q==}
     dependencies:
-      undici-types: 7.16.0
+      undici-types: 7.18.2
     dev: true
 
   /@types/prop-types@15.7.15:
@@ -2601,7 +2601,7 @@ packages:
       '@rolldown/pluginutils': 1.0.0-beta.53
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 7.2.7(@types/node@25.0.7)
+      vite: 7.2.7(@types/node@25.3.2)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2625,7 +2625,7 @@ packages:
       obug: 2.1.1
       std-env: 3.10.0
       tinyrainbow: 3.0.3
-      vitest: 4.0.18(@types/node@25.0.7)(@vitest/ui@4.0.18)(jsdom@28.1.0)
+      vitest: 4.0.18(@types/node@25.3.2)(@vitest/ui@4.0.18)(jsdom@28.1.0)
     dev: true
 
   /@vitest/expect@4.0.18:
@@ -2653,7 +2653,7 @@ packages:
       '@vitest/spy': 4.0.18
       estree-walker: 3.0.3
       magic-string: 0.30.21
-      vite: 7.2.7(@types/node@25.0.7)
+      vite: 7.2.7(@types/node@25.3.2)
     dev: true
 
   /@vitest/pretty-format@4.0.18:
@@ -2693,7 +2693,7 @@ packages:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vitest: 4.0.18(@types/node@25.0.7)(@vitest/ui@4.0.18)(jsdom@28.1.0)
+      vitest: 4.0.18(@types/node@25.3.2)(@vitest/ui@4.0.18)(jsdom@28.1.0)
     dev: true
 
   /@vitest/utils@4.0.18:
@@ -4012,8 +4012,8 @@ packages:
     hasBin: true
     dev: true
 
-  /undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
+  /undici-types@7.18.2:
+    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
     dev: true
 
   /undici@7.22.0:
@@ -4077,7 +4077,7 @@ packages:
       react: 18.3.1
     dev: false
 
-  /vite@7.2.7(@types/node@25.0.7):
+  /vite@7.2.7(@types/node@25.3.2):
     resolution: {integrity: sha512-ITcnkFeR3+fI8P1wMgItjGrR10170d8auB4EpMLPqmx6uxElH3a/hHGQabSHKdqd4FXWO1nFIp9rRn7JQ34ACQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
@@ -4117,7 +4117,7 @@ packages:
       yaml:
         optional: true
     dependencies:
-      '@types/node': 25.0.7
+      '@types/node': 25.3.2
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
@@ -4128,7 +4128,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@4.0.18(@types/node@25.0.7)(@vitest/ui@4.0.18)(jsdom@28.1.0):
+  /vitest@4.0.18(@types/node@25.3.2)(@vitest/ui@4.0.18)(jsdom@28.1.0):
     resolution: {integrity: sha512-hOQuK7h0FGKgBAas7v0mSAsnvrIgAvWmRFjmzpJ7SwFHH3g1k2u37JtYwOwmEKhK6ZO3v9ggDBBm0La1LCK4uQ==}
     engines: {node: ^20.0.0 || ^22.0.0 || >=24.0.0}
     hasBin: true
@@ -4162,7 +4162,7 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/node': 25.0.7
+      '@types/node': 25.3.2
       '@vitest/expect': 4.0.18
       '@vitest/mocker': 4.0.18(vite@7.2.7)
       '@vitest/pretty-format': 4.0.18
@@ -4183,7 +4183,7 @@ packages:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.2.7(@types/node@25.0.7)
+      vite: 7.2.7(@types/node@25.3.2)
       why-is-node-running: 2.3.0
     transitivePeerDependencies:
       - jiti
