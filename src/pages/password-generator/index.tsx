@@ -247,7 +247,6 @@ function PasswordGenerator(): JSX.Element {
                             minWidth: '40px',
                             justifyContent: 'center',
                           }}
-                          onClick={() => toggleSpecialChar(char)}
                           data-testid={`special-char-${char.charCodeAt(0)}`}
                         >
                           <Checkbox

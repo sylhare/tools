@@ -27,6 +27,22 @@ test.describe('Password Generator', () => {
     expect(mixedPassword).toMatch(/[A-Za-z]/);
   });
 
+  test('special character checkboxes toggle correctly without double-firing', async ({ page }) => {
+    await page.goto('/password-generator');
+
+    await page.getByTestId('special-checkbox').check();
+    await page.getByTestId('special-chars-toggle').click();
+
+    const firstCharBox = page.getByTestId('special-char-33'); // '!' is charCode 33
+
+    await expect(firstCharBox.getByRole('checkbox')).toBeChecked();
+    await firstCharBox.click();
+    await expect(firstCharBox.getByRole('checkbox')).not.toBeChecked();
+
+    await firstCharBox.click();
+    await expect(firstCharBox.getByRole('checkbox')).toBeChecked();
+  });
+
   test('copy button copies password to clipboard', async ({ page, context, browserName }) => {
     test.skip(browserName !== 'chromium', 'Clipboard permissions are only supported in Chromium');
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
