@@ -23,7 +23,7 @@ function TimeConverter(): JSX.Element {
 
       <Card style={{ maxWidth: '800px' }}>
         <Flex direction="column" gap="5" p="4">
-          <Grid columns="2" gap="4">
+          <Grid columns={{ initial: '1', sm: '2' }} gap="4">
             {unitConfig.map(config => {
               const unit = selectedUnits.find(u => u.id === config.id);
               if (!unit) return null;
