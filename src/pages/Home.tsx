@@ -12,7 +12,7 @@ function Home(): JSX.Element {
         </Text>
       </Flex>
 
-      <Flex gap="4" wrap="wrap">
+      <Flex gap="4" wrap="wrap" justify="center">
         {tools.map(tool => (
           <ToolCard key={tool.link} {...tool} />
         ))}

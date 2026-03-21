@@ -25,7 +25,7 @@ function MeasurementConverter(): JSX.Element {
 
       <Card style={{ maxWidth: '800px' }}>
         <Flex direction="column" gap="5" p="4">
-          <Grid columns="2" gap="6">
+          <Grid columns={{ initial: '1', sm: '2' }} gap="6">
             {/* Metric System */}
             <Flex direction="column" gap="4">
               <Text size="4" weight="bold" color="blue">
