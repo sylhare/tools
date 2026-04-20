@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 import { Flex, Heading, Text, Card, TextField, Button } from '@radix-ui/themes';
 import { useHexRgbConverter } from './useHexRgbConverter';
 
@@ -44,20 +44,12 @@ function HexRgbConverter(): JSX.Element {
     hexToRgb,
   } = useHexRgbConverter();
 
-  const [copiedShade, setCopiedShade] = useState<string | null>(null);
-
   const copyToClipboard = async (text: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(text);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
-  };
-
-  const copyShade = async (shadeHex: string): Promise<void> => {
-    await copyToClipboard(shadeHex);
-    setCopiedShade(shadeHex);
-    setTimeout(() => setCopiedShade(null), 1500);
   };
 
   const colorPreview = displayHex ? displayHex : '#000000';
@@ -123,8 +115,8 @@ function HexRgbConverter(): JSX.Element {
                     {shades.map(shade => (
                       <div
                         key={shade.hex}
-                        onClick={() => copyShade(shade.hex)}
-                        style={{ position: 'relative', cursor: 'pointer' }}
+                        onClick={() => handleHexChange({ target: { value: shade.hex } } as ChangeEvent<HTMLInputElement>)}
+                        style={{ cursor: 'pointer' }}
                         title={shade.hex}
                       >
                         <Flex
@@ -150,27 +142,6 @@ function HexRgbConverter(): JSX.Element {
                             {shade.hex}
                           </Text>
                         </Flex>
-                        {copiedShade === shade.hex && (
-                          <div
-                            style={{
-                              position: 'absolute',
-                              bottom: '100%',
-                              left: '50%',
-                              transform: 'translateX(-50%)',
-                              backgroundColor: 'var(--gray-12)',
-                              color: 'var(--gray-1)',
-                              padding: '2px 8px',
-                              borderRadius: '4px',
-                              fontSize: '11px',
-                              whiteSpace: 'nowrap',
-                              pointerEvents: 'none',
-                              zIndex: 10,
-                              marginBottom: '4px',
-                            }}
-                          >
-                            Copied!
-                          </div>
-                        )}
                       </div>
                     ))}
                   </Flex>
