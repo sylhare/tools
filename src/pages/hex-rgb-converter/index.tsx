@@ -1,5 +1,33 @@
+import { ChangeEvent } from 'react';
 import { Flex, Heading, Text, Card, TextField, Button } from '@radix-ui/themes';
 import { useHexRgbConverter } from './useHexRgbConverter';
+
+interface Shade {
+  hex: string;
+  isBase: boolean;
+}
+
+function generateShades(r: number, g: number, b: number): Shade[] {
+  const steps = [-80, -60, -40, -20, 0, 20, 40, 60, 80];
+  return steps.map(step => {
+    let nr: number, ng: number, nb: number;
+    if (step < 0) {
+      const factor = 1 + step / 100;
+      nr = Math.round(r * factor);
+      ng = Math.round(g * factor);
+      nb = Math.round(b * factor);
+    } else if (step > 0) {
+      const factor = step / 100;
+      nr = Math.round(r + (255 - r) * factor);
+      ng = Math.round(g + (255 - g) * factor);
+      nb = Math.round(b + (255 - b) * factor);
+    } else {
+      nr = r; ng = g; nb = b;
+    }
+    const hex = `#${nr.toString(16).padStart(2, '0')}${ng.toString(16).padStart(2, '0')}${nb.toString(16).padStart(2, '0')}`;
+    return { hex, isBase: step === 0 };
+  });
+}
 
 function HexRgbConverter(): JSX.Element {
   const {
@@ -13,6 +41,7 @@ function HexRgbConverter(): JSX.Element {
     handleRChange,
     handleGChange,
     handleBChange,
+    hexToRgb,
   } = useHexRgbConverter();
 
   const copyToClipboard = async (text: string): Promise<void> => {
@@ -24,6 +53,9 @@ function HexRgbConverter(): JSX.Element {
   };
 
   const colorPreview = displayHex ? displayHex : '#000000';
+
+  const rgbValues = displayHex ? hexToRgb(displayHex) : null;
+  const shades: Shade[] = rgbValues ? generateShades(rgbValues.r, rgbValues.g, rgbValues.b) : [];
 
   return (
     <Flex direction="column" gap="6" py="6">
@@ -74,6 +106,47 @@ function HexRgbConverter(): JSX.Element {
                   Copy
                 </Button>
               </Flex>
+            )}
+            {shades.length > 0 && (
+              <Card style={{ padding: '12px', border: '1px solid var(--gray-5)' }}>
+                <Flex direction="column" gap="2">
+                  <Text size="2" weight="bold" color="gray">Color Shades</Text>
+                  <Flex gap="1" wrap="wrap">
+                    {shades.map(shade => (
+                      <div
+                        key={shade.hex}
+                        onClick={() => handleHexChange({ target: { value: shade.hex } } as ChangeEvent<HTMLInputElement>)}
+                        style={{ cursor: 'pointer' }}
+                        title={shade.hex}
+                      >
+                        <Flex
+                          direction="column"
+                          align="center"
+                          gap="1"
+                          style={{
+                            padding: '4px',
+                            borderRadius: '6px',
+                            border: shade.isBase ? '2px solid var(--gray-8)' : '2px solid transparent',
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              backgroundColor: shade.hex,
+                              borderRadius: '4px',
+                              border: '1px solid var(--gray-5)',
+                            }}
+                          />
+                          <Text size="1" style={{ fontFamily: 'monospace', fontSize: '9px' }}>
+                            {shade.hex}
+                          </Text>
+                        </Flex>
+                      </div>
+                    ))}
+                  </Flex>
+                </Flex>
+              </Card>
             )}
           </Flex>
 

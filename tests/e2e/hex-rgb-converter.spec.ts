@@ -27,6 +27,32 @@ test.describe('Hex to RGB Converter', () => {
     await expect(rgbInputs.nth(2)).toHaveValue('0');
   });
 
+  test('color shades box appears and clicking a shade sets the color', async ({ page }) => {
+    await page.goto('/hex-rgb-converter');
+
+    const hexInput = page.getByPlaceholder('Enter hex value (e.g., FF5733 or #FF5733)');
+
+    await expect(page.getByText('Color Shades')).not.toBeVisible();
+
+    await hexInput.fill('FF5733');
+
+    await expect(page.getByText('Color Shades')).toBeVisible();
+
+    const swatches = page.locator('[title^="#"]');
+    await expect(swatches).toHaveCount(9);
+
+    await expect(page.locator('[title="#ff5733"]')).toBeVisible();
+
+    const firstSwatch = swatches.first();
+    const shadeHex = await firstSwatch.getAttribute('title');
+    await firstSwatch.click();
+
+    await expect(hexInput).toHaveValue(shadeHex!);
+
+    const preview = page.getByTestId('color-preview');
+    await expect(preview).toHaveCSS('background-color', /.+/);
+  });
+
   test('copy buttons copy correct values to clipboard', async ({ page, context, browserName }) => {
     test.skip(browserName !== 'chromium', 'Clipboard permissions are only supported in Chromium');
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
