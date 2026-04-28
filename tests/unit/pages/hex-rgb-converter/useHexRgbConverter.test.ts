@@ -73,6 +73,7 @@ describe('useHexRgbConverter', () => {
       expect(result.current.r).toBe('');
       expect(result.current.g).toBe('');
       expect(result.current.b).toBe('');
+      expect(result.current.rgbInput).toBe('');
       expect(result.current.displayHex).toBe('');
       expect(result.current.displayRgb).toBe('');
     });
@@ -212,6 +213,81 @@ describe('useHexRgbConverter', () => {
 
       expect(result.current.hex).toBe('');
       expect(result.current.r).toBe('');
+    });
+
+    it('updates rgbInput when hex changes to valid value', () => {
+      const { result } = renderHook(() => useHexRgbConverter());
+
+      act(() => {
+        result.current.handleHexChange({
+          target: { value: 'FF0000' },
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+
+      expect(result.current.rgbInput).toBe('rgb(255, 0, 0)');
+    });
+
+    it('updates hex and rgb fields when rgb string is pasted', () => {
+      const { result } = renderHook(() => useHexRgbConverter());
+
+      act(() => {
+        result.current.handleRgbInputChange({
+          target: { value: 'rgb(255, 87, 51)' },
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+
+      expect(result.current.r).toBe('255');
+      expect(result.current.g).toBe('87');
+      expect(result.current.b).toBe('51');
+      expect(result.current.hex).toBe('ff5733');
+    });
+
+    it('parses rgb string without spaces', () => {
+      const { result } = renderHook(() => useHexRgbConverter());
+
+      act(() => {
+        result.current.handleRgbInputChange({
+          target: { value: 'rgb(1,2,3)' },
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+
+      expect(result.current.r).toBe('1');
+      expect(result.current.g).toBe('2');
+      expect(result.current.b).toBe('3');
+    });
+
+    it('does not update fields for incomplete rgb string', () => {
+      const { result } = renderHook(() => useHexRgbConverter());
+
+      act(() => {
+        result.current.handleRgbInputChange({
+          target: { value: 'rgb(255,' },
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+
+      expect(result.current.r).toBe('');
+      expect(result.current.hex).toBe('');
+    });
+
+    it('clears all fields when rgb string is cleared', () => {
+      const { result } = renderHook(() => useHexRgbConverter());
+
+      act(() => {
+        result.current.handleRgbInputChange({
+          target: { value: 'rgb(255, 0, 0)' },
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+
+      act(() => {
+        result.current.handleRgbInputChange({
+          target: { value: '' },
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+
+      expect(result.current.r).toBe('');
+      expect(result.current.g).toBe('');
+      expect(result.current.b).toBe('');
+      expect(result.current.hex).toBe('');
     });
 
     it('handles invalid hex input gracefully', () => {

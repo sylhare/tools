@@ -5,12 +5,14 @@ interface UseHexRgbConverterReturn {
   r: string;
   g: string;
   b: string;
+  rgbInput: string;
   displayHex: string;
   displayRgb: string;
   handleHexChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleRChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleGChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleBChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleRgbInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   hexToRgb: (hex: string) => { r: number; g: number; b: number } | null;
   rgbToHex: (r: number, g: number, b: number) => string;
 }
@@ -20,6 +22,7 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
   const [r, setR] = useState<string>('');
   const [g, setG] = useState<string>('');
   const [b, setB] = useState<string>('');
+  const [rgbInput, setRgbInput] = useState<string>('');
 
   const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
     const cleanHex = hex.replace(/^#/, '');
@@ -49,6 +52,16 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
     return toHex(r) + toHex(g) + toHex(b);
   };
 
+  const parseRgbString = (value: string): { r: number; g: number; b: number } | null => {
+    const match = value.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/i);
+    if (!match) return null;
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+    if (r > 255 || g > 255 || b > 255) return null;
+    return { r, g, b };
+  };
+
   const handleHexChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setHex(value);
@@ -57,12 +70,14 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
       setR('');
       setG('');
       setB('');
+      setRgbInput('');
     } else {
       const rgb = hexToRgb(value);
       if (rgb) {
         setR(rgb.r.toString());
         setG(rgb.g.toString());
         setB(rgb.b.toString());
+        setRgbInput(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`);
       }
     }
   };
@@ -85,9 +100,30 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
     updateHexFromRgb(r, g, value);
   };
 
+  const handleRgbInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const value = e.target.value;
+    setRgbInput(value);
+
+    if (value === '') {
+      setR('');
+      setG('');
+      setB('');
+      setHex('');
+    } else {
+      const rgb = parseRgbString(value);
+      if (rgb) {
+        setR(rgb.r.toString());
+        setG(rgb.g.toString());
+        setB(rgb.b.toString());
+        setHex(rgbToHex(rgb.r, rgb.g, rgb.b));
+      }
+    }
+  };
+
   const updateHexFromRgb = (rVal: string, gVal: string, bVal: string): void => {
     if (rVal === '' && gVal === '' && bVal === '') {
       setHex('');
+      setRgbInput('');
       return;
     }
 
@@ -96,8 +132,8 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
     const bNum = bVal === '' ? 0 : parseFloat(bVal);
 
     if (!isNaN(rNum) && !isNaN(gNum) && !isNaN(bNum)) {
-      const hexValue = rgbToHex(rNum, gNum, bNum);
-      setHex(hexValue);
+      setHex(rgbToHex(rNum, gNum, bNum));
+      setRgbInput(`rgb(${Math.round(rNum)}, ${Math.round(gNum)}, ${Math.round(bNum)})`);
     }
   };
 
@@ -109,14 +145,15 @@ export function useHexRgbConverter(): UseHexRgbConverterReturn {
     r,
     g,
     b,
+    rgbInput,
     displayHex,
     displayRgb,
     handleHexChange,
     handleRChange,
     handleGChange,
     handleBChange,
+    handleRgbInputChange,
     hexToRgb,
     rgbToHex,
   };
 }
-
