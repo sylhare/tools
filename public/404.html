@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      // Store the intended path and redirect to the app root so the SPA can handle routing.
+      // The first path segment is the GitHub Pages project basename (e.g. /tools/).
+      sessionStorage.setItem('spa_redirect', location.pathname + location.search + location.hash);
+      var segments = location.pathname.split('/').filter(Boolean);
+      var base = segments.length > 0 ? '/' + segments[0] + '/' : '/';
+      location.replace(location.origin + base);
+    </script>
+  </head>
+  <body></body>
+</html>
