@@ -31,6 +31,12 @@ export const tools: Tool[] = [
     link: '/measurement-converter',
   },
   {
+    title: 'Weight Converter',
+    description: 'Convert weights between metric and imperial units including grams, kilograms, ounces, and pounds.',
+    icon: '⚖️',
+    link: '/weight-converter',
+  },
+  {
     title: 'Time Converter',
     description: 'Convert time between seconds, minutes, hours, days, months, and years.',
     icon: '⏱️',
