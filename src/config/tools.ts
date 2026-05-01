@@ -49,16 +49,16 @@ export const tools: Tool[] = [
     link: '/password-generator',
   },
   {
-    title: 'Badminton Manager',
-    description: 'Manage your badminton games, players, and tournaments.',
-    icon: '🏸',
-    link: '/badminton-manager',
-  },
-  {
     title: 'Phone Keypad Converter',
     description: 'Convert text to phone keypad sequences and back, like the classic T9 keyboard.',
     icon: '📱',
     link: '/phone-text-converter',
+  },
+  {
+    title: 'Badminton Manager',
+    description: 'Manage your badminton games, players, and tournaments.',
+    icon: '🏸',
+    link: '/badminton-manager',
   },
 ];
 
