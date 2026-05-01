@@ -22,7 +22,7 @@ function WeightConverter(): JSX.Element {
         <Flex direction="column" gap="5" p="4">
           <Grid columns={{ initial: '1', sm: '2' }} gap="4">
             {unitConfig.map(config => {
-              const unit = selectedUnits.find(u => u.id === config.id);
+              const unit = weightConverter.getUnit(config.id);
               if (!unit) return null;
 
               return (

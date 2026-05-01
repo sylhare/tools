@@ -13,8 +13,7 @@ describe('Weight Converter Config', () => {
     });
 
     it('should have grams as base unit', () => {
-      const baseUnit = weightConverter.getBaseUnit();
-      expect(baseUnit.id).toBe('g');
+      expect(weightConverter.getBaseUnit().id).toBe('g');
     });
   });
 
@@ -23,21 +22,14 @@ describe('Weight Converter Config', () => {
       expect(selectedUnits).toHaveLength(4);
     });
 
-    it('should include all expected units', () => {
-      const unitIds = selectedUnits.map(u => u.id);
-      expect(unitIds).toContain('g');
-      expect(unitIds).toContain('kg');
-      expect(unitIds).toContain('oz');
-      expect(unitIds).toContain('lb');
+    it.each(['g', 'kg', 'oz', 'lb'])('should include unit "%s"', (id) => {
+      expect(selectedUnits.map(u => u.id)).toContain(id);
     });
 
-    it('should have all units defined', () => {
-      selectedUnits.forEach(unit => {
-        expect(unit).toBeDefined();
-        expect(unit.id).toBeDefined();
-        expect(unit.name).toBeDefined();
-        expect(unit.symbol).toBeDefined();
-      });
+    it.each(selectedUnits)('unit "$id" should have required properties', (unit) => {
+      expect(unit.id).toBeDefined();
+      expect(unit.name).toBeDefined();
+      expect(unit.symbol).toBeDefined();
     });
   });
 
@@ -46,43 +38,27 @@ describe('Weight Converter Config', () => {
       expect(unitConfig).toHaveLength(4);
     });
 
-    it('should have correct structure for each config', () => {
-      unitConfig.forEach(config => {
-        expect(config).toHaveProperty('id');
-        expect(config).toHaveProperty('label');
-        expect(config).toHaveProperty('placeholder');
-      });
+    it.each(unitConfig)('config "$id" should have required properties', (config) => {
+      expect(config.id).toBeDefined();
+      expect(config.label).toBeDefined();
+      expect(config.placeholder).toBeDefined();
     });
 
-    it('should match selectedUnits IDs', () => {
-      const configIds = unitConfig.map(c => c.id);
-      const unitIds = selectedUnits.map(u => u.id);
-
-      configIds.forEach(id => {
-        expect(unitIds).toContain(id);
-      });
+    it.each(unitConfig)('config "$id" should match a selectedUnit', ({ id }) => {
+      expect(selectedUnits.map(u => u.id)).toContain(id);
     });
   });
 
   describe('conversions', () => {
-    it('should convert 1 kg to grams correctly', () => {
-      const result = weightConverter.convert(1, 'kg', 'g');
-      expect(result).toBe(1000);
-    });
+    const cases: [number, string, string, number, number][] = [
+      [1, 'kg', 'g', 1000, 0],
+      [1, 'lb', 'g', 453.592, 2],
+      [1, 'oz', 'g', 28.3495, 2],
+      [16, 'oz', 'lb', 1, 1],
+    ];
 
-    it('should convert 1 lb to grams correctly', () => {
-      const result = weightConverter.convert(1, 'lb', 'g');
-      expect(result).toBeCloseTo(453.592, 2);
-    });
-
-    it('should convert 1 oz to grams correctly', () => {
-      const result = weightConverter.convert(1, 'oz', 'g');
-      expect(result).toBeCloseTo(28.3495, 2);
-    });
-
-    it('should convert 16 oz to 1 lb correctly', () => {
-      const result = weightConverter.convert(16, 'oz', 'lb');
-      expect(result).toBeCloseTo(1, 1);
+    it.each(cases)('converts %d %s → %s', (value, from, to, expected, precision) => {
+      expect(weightConverter.convert(value, from, to)).toBeCloseTo(expected, precision);
     });
   });
 });
