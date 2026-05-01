@@ -1,32 +1,30 @@
 import { Flex, Heading, Text, Card, TextField, Grid, Button } from '@radix-ui/themes';
-import { useState } from 'react';
-import { usePhoneTextConverter } from './usePhoneTextConverter';
+import { useState, useEffect, useRef } from 'react';
+import { usePhoneTextConverter, KEYPAD } from './usePhoneTextConverter';
 
-const KEYPAD_LAYOUT = [
+const KEYPAD_LAYOUT: ({ key: string; letters: string } | null)[] = [
   { key: '1', letters: '' },
-  { key: '2', letters: 'ABC' },
-  { key: '3', letters: 'DEF' },
-  { key: '4', letters: 'GHI' },
-  { key: '5', letters: 'JKL' },
-  { key: '6', letters: 'MNO' },
-  { key: '7', letters: 'PQRS' },
-  { key: '8', letters: 'TUV' },
-  { key: '9', letters: 'WXYZ' },
+  ...Object.entries(KEYPAD).map(([key, letters]) => ({ key, letters })),
   null,
   { key: '0', letters: 'SPACE' },
   null,
-] as const;
+];
 
 function PhoneTextConverter(): JSX.Element {
   const { text, phone, breakdown, handleTextChange, handlePhoneChange, appendDigit, clear } = usePhoneTextConverter();
   const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(copyTimerRef.current), []);
+
+  const strippedPhone = phone.replace(/\s+/g, '');
 
   const handleCopy = async (): Promise<void> => {
-    const digits = phone.replace(/\s+/g, '');
-    if (!digits) return;
-    await navigator.clipboard.writeText(digits);
+    if (!strippedPhone) return;
+    await navigator.clipboard.writeText(strippedPhone);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => setCopied(false), 1500);
   };
 
   return (
@@ -71,7 +69,7 @@ function PhoneTextConverter(): JSX.Element {
               variant="soft"
               style={{ width: '100%' }}
               onClick={handleCopy}
-              disabled={!phone.replace(/\s+/g, '')}
+              disabled={!strippedPhone}
               data-testid="copy-phone-button"
             >
               {copied ? '✓ Copied' : '⧉ Copy without spaces'}
@@ -123,7 +121,7 @@ function PhoneTextConverter(): JSX.Element {
                 >
                   <Flex direction="column" align="center" gap="1">
                     <Text size="6" weight="bold">{item.key}</Text>
-                    <Text size="2" color="gray">{item.letters || ' '}</Text>
+                    <Text size="2" color="gray">{item.letters || ' '}</Text>
                   </Flex>
                 </Card>
               ) : (

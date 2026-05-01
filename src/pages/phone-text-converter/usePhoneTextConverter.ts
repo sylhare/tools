@@ -94,7 +94,7 @@ export function usePhoneTextConverter(): UsePhoneTextConverterReturn {
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setText(value);
-    setPhone(textToPhone(value));
+    setPhone(getBreakdown(value).map(m => m.sequence).join(' '));
   };
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>): void => {

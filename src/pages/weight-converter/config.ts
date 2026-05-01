@@ -5,12 +5,9 @@ import {
   UnitCategory,
 } from '../../utils/conversions';
 
-export const selectedUnits = [
-  weightUnits.find(u => u.id === 'g')!,
-  weightUnits.find(u => u.id === 'kg')!,
-  weightUnits.find(u => u.id === 'oz')!,
-  weightUnits.find(u => u.id === 'lb')!,
-];
+const selectedIds = ['g', 'kg', 'oz', 'lb'];
+
+export const selectedUnits = weightUnits.filter(u => selectedIds.includes(u.id));
 
 export const weightConverter = new RatioConverter({
   baseUnit: getBaseUnit(UnitCategory.Weight),
@@ -18,9 +15,8 @@ export const weightConverter = new RatioConverter({
   defaultPrecision: 2,
 });
 
-export const unitConfig = [
-  { id: 'g', label: 'Grams', placeholder: 'Enter g' },
-  { id: 'kg', label: 'Kilograms', placeholder: 'Enter kg' },
-  { id: 'oz', label: 'Ounces', placeholder: 'Enter oz' },
-  { id: 'lb', label: 'Pounds', placeholder: 'Enter lb' },
-];
+export const unitConfig = selectedUnits.map(u => ({
+  id: u.id,
+  label: u.name,
+  placeholder: `Enter ${u.symbol}`,
+}));
