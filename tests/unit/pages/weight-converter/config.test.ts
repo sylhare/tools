@@ -22,11 +22,11 @@ describe('Weight Converter Config', () => {
       expect(selectedUnits).toHaveLength(4);
     });
 
-    it.each(['g', 'kg', 'oz', 'lb'])('should include unit "%s"', (id) => {
+    it.each(['g', 'kg', 'oz', 'lb'])('should include unit "%s"', id => {
       expect(selectedUnits.map(u => u.id)).toContain(id);
     });
 
-    it.each(selectedUnits)('unit "$id" should have required properties', (unit) => {
+    it.each(selectedUnits)('unit "$id" should have required properties', unit => {
       expect(unit.id).toBeDefined();
       expect(unit.name).toBeDefined();
       expect(unit.symbol).toBeDefined();
@@ -38,7 +38,7 @@ describe('Weight Converter Config', () => {
       expect(unitConfig).toHaveLength(4);
     });
 
-    it.each(unitConfig)('config "$id" should have required properties', (config) => {
+    it.each(unitConfig)('config "$id" should have required properties', config => {
       expect(config.id).toBeDefined();
       expect(config.label).toBeDefined();
       expect(config.placeholder).toBeDefined();

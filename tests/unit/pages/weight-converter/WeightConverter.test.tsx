@@ -8,12 +8,12 @@ describe('WeightConverter Component', () => {
     expect(screen.getByRole('heading', { name: 'Weight Converter' })).toBeInTheDocument();
   });
 
-  it.each(['Enter g', 'Enter kg', 'Enter oz', 'Enter lb'])('should render input "%s"', (placeholder) => {
+  it.each(['Enter g', 'Enter kg', 'Enter oz', 'Enter lb'])('should render input "%s"', placeholder => {
     render(<WeightConverter />);
     expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
   });
 
-  it.each(['Grams', 'Kilograms', 'Ounces', 'Pounds'])('should render unit label "%s"', (label) => {
+  it.each(['Grams', 'Kilograms', 'Ounces', 'Pounds'])('should render unit label "%s"', label => {
     render(<WeightConverter />);
     expect(screen.getByText(new RegExp(label))).toBeInTheDocument();
   });
