@@ -9,6 +9,7 @@ import MeasurementConverter from './pages/measurement-converter';
 import TimeConverter from './pages/time-converter';
 import PasswordGenerator from './pages/password-generator';
 import BadmintonManager from './pages/badminton-manager';
+import PhoneTextConverter from './pages/phone-text-converter';
 import NotFound from './pages/NotFound';
 
 function App(): JSX.Element {
@@ -25,6 +26,7 @@ function App(): JSX.Element {
             <Route path="/time-converter" element={<TimeConverter />} />
             <Route path="/password-generator" element={<PasswordGenerator />} />
             <Route path="/badminton-manager" element={<BadmintonManager />} />
+            <Route path="/phone-text-converter" element={<PhoneTextConverter />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

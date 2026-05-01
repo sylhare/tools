@@ -48,5 +48,11 @@ export const tools: Tool[] = [
     icon: '🏸',
     link: '/badminton-manager',
   },
+  {
+    title: 'Phone Keypad Converter',
+    description: 'Convert text to phone keypad sequences and back, like the classic T9 keyboard.',
+    icon: '📱',
+    link: '/phone-text-converter',
+  },
 ];
 
