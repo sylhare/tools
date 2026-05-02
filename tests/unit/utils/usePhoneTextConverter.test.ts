@@ -71,6 +71,18 @@ describe('phoneToText', () => {
     expect(phoneToText(input)).toBe(expected);
   });
 
+  it.each([
+    ['4433555555666', 'HELLO'],
+    ['222', 'C'],
+    ['2222', 'CA'],
+    ['22222', 'CB'],
+    ['77777777', 'SS'],
+    ['222022', 'C B'],
+    ['22 22', 'BB'],
+  ])('converts spaceless %s → %s', (input, expected) => {
+    expect(phoneToText(input)).toBe(expected);
+  });
+
   it.each(['HELLO', 'ABC', 'CALL ME'])('round-trips %s', text => {
     expect(phoneToText(textToPhone(text))).toBe(text);
   });

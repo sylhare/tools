@@ -1,8 +1,31 @@
-import { Flex, Heading, Text, Card, TextField, Grid } from '@radix-ui/themes';
+import { Flex, Heading, Text, Card, TextField, Grid, Button } from '@radix-ui/themes';
+import { useState, useEffect, useRef } from 'react';
 import { usePhoneTextConverter, KEYPAD } from './usePhoneTextConverter';
 
+const KEYPAD_LAYOUT: ({ key: string; letters: string } | null)[] = [
+  { key: '1', letters: '' },
+  ...Object.entries(KEYPAD).map(([key, letters]) => ({ key, letters })),
+  null,
+  { key: '0', letters: 'SPACE' },
+  null,
+];
+
 function PhoneTextConverter(): JSX.Element {
-  const { text, phone, breakdown, handleTextChange, handlePhoneChange } = usePhoneTextConverter();
+  const { text, phone, breakdown, handleTextChange, handlePhoneChange, appendDigit, clear } = usePhoneTextConverter();
+  const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(copyTimerRef.current), []);
+
+  const strippedPhone = phone.replace(/\s+/g, '');
+
+  const handleCopy = async (): Promise<void> => {
+    if (!strippedPhone) return;
+    await navigator.clipboard.writeText(strippedPhone);
+    setCopied(true);
+    clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => setCopied(false), 1500);
+  };
 
   return (
     <Flex direction="column" gap="6" py="6">
@@ -41,6 +64,27 @@ function PhoneTextConverter(): JSX.Element {
             />
           </Flex>
 
+          <Flex gap="2">
+            <Button
+              variant="soft"
+              style={{ width: '100%' }}
+              onClick={handleCopy}
+              disabled={!strippedPhone}
+              data-testid="copy-phone-button"
+            >
+              {copied ? '✓ Copied' : '⧉ Copy without spaces'}
+            </Button>
+            <Button
+              variant="soft"
+              style={{ width: '100%' }}
+              onClick={clear}
+              disabled={!text && !phone}
+              data-testid="clear-button"
+            >
+              ✕ Clear
+            </Button>
+          </Flex>
+
           {breakdown.length > 0 && (
             <Flex direction="column" gap="2">
               <Text size="3" weight="bold">Breakdown</Text>
@@ -64,29 +108,32 @@ function PhoneTextConverter(): JSX.Element {
       </Card>
 
       <Card style={{ maxWidth: '600px' }} variant="surface">
-        <Flex direction="column" gap="2" p="3">
-          <Text size="2" weight="bold">Keypad Reference</Text>
-          <Grid columns="4" gap="2">
-            {Object.entries(KEYPAD).map(([key, letters]) => (
-              <Card key={key} style={{ padding: '6px 8px' }}>
-                <Flex direction="column" align="center" gap="1">
-                  <Text size="4" weight="bold">{key}</Text>
-                  <Text size="1" color="gray">{letters}</Text>
-                </Flex>
-              </Card>
-            ))}
-            <Card style={{ padding: '6px 8px' }}>
-              <Flex direction="column" align="center" gap="1">
-                <Text size="4" weight="bold">0</Text>
-                <Text size="1" color="gray">SPACE</Text>
-              </Flex>
-            </Card>
+        <Flex direction="column" gap="3" p="3">
+          <Text size="2" weight="bold">Keypad</Text>
+          <Grid columns="3" gap="2" style={{ width: '100%' }}>
+            {KEYPAD_LAYOUT.map((item, i) =>
+              item ? (
+                <Card
+                  key={item.key}
+                  style={{ padding: '12px 8px', cursor: 'pointer' }}
+                  onClick={() => appendDigit(item.key)}
+                  data-testid={`keypad-${item.key}`}
+                >
+                  <Flex direction="column" align="center" gap="1">
+                    <Text size="6" weight="bold">{item.key}</Text>
+                    <Text size="2" color="gray">{item.letters || ' '}</Text>
+                  </Flex>
+                </Card>
+              ) : (
+                <div key={`empty-${i}`} />
+              )
+            )}
           </Grid>
-          <Flex direction="column" gap="1">
-            <Text size="2" color="gray">• Press a key once for the 1st letter (e.g., 2 = A)</Text>
-            <Text size="2" color="gray">• Press twice for the 2nd letter (e.g., 22 = B)</Text>
-            <Text size="2" color="gray">• Separate each key group with a space (e.g., 2 22 = AB)</Text>
-            <Text size="2" color="gray">• Press 0 for a space</Text>
+          <Flex direction="column" gap="1" pb="2">
+            <Text size="2" color="gray">Click a key to append it to the sequence</Text>
+            <Text size="2" color="gray">Press a key once for the 1st letter (e.g., 2 = A)</Text>
+            <Text size="2" color="gray">Press twice for the 2nd letter (e.g., 22 = B)</Text>
+            <Text size="2" color="gray">Press 0 for a space</Text>
           </Flex>
         </Flex>
       </Card>

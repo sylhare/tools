@@ -25,6 +25,32 @@ export const SEQUENCE_TO_LETTER: Record<string, string> = Object.fromEntries(
   Object.entries(LETTER_TO_SEQUENCE).map(([letter, seq]) => [seq, letter])
 );
 
+const MAX_REPEATS: Record<string, number> = { '0': 1 };
+for (const [key, letters] of Object.entries(KEYPAD)) {
+  MAX_REPEATS[key] = letters.length;
+}
+
+function parseDigits(digits: string): string {
+  const chars: string[] = [];
+  let i = 0;
+  while (i < digits.length) {
+    const digit = digits[i];
+    const max = MAX_REPEATS[digit];
+    if (!max) {
+      i++;
+      continue;
+    }
+    let count = 0;
+    while (i < digits.length && digits[i] === digit && count < max) {
+      count++;
+      i++;
+    }
+    const letter = SEQUENCE_TO_LETTER[digit.repeat(count)];
+    if (letter !== undefined) chars.push(letter);
+  }
+  return chars.join('');
+}
+
 export interface CharMapping {
   char: string;
   sequence: string;
@@ -46,12 +72,7 @@ export function textToPhone(text: string): string {
 export function phoneToText(phone: string): string {
   const trimmed = phone.trim();
   if (!trimmed) return '';
-  const chars: string[] = [];
-  for (const seq of trimmed.split(/\s+/)) {
-    const letter = SEQUENCE_TO_LETTER[seq];
-    if (letter !== undefined) chars.push(letter);
-  }
-  return chars.join('');
+  return trimmed.split(/\s+/).map(parseDigits).join('');
 }
 
 interface UsePhoneTextConverterReturn {
@@ -60,6 +81,8 @@ interface UsePhoneTextConverterReturn {
   breakdown: CharMapping[];
   handleTextChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handlePhoneChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  appendDigit: (digit: string) => void;
+  clear: () => void;
 }
 
 export function usePhoneTextConverter(): UsePhoneTextConverterReturn {
@@ -71,7 +94,7 @@ export function usePhoneTextConverter(): UsePhoneTextConverterReturn {
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setText(value);
-    setPhone(textToPhone(value));
+    setPhone(getBreakdown(value).map(m => m.sequence).join(' '));
   };
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -80,5 +103,16 @@ export function usePhoneTextConverter(): UsePhoneTextConverterReturn {
     setText(phoneToText(value));
   };
 
-  return { text, phone, breakdown, handleTextChange, handlePhoneChange };
+  const appendDigit = (digit: string): void => {
+    const newPhone = phone + digit;
+    setPhone(newPhone);
+    setText(phoneToText(newPhone));
+  };
+
+  const clear = (): void => {
+    setText('');
+    setPhone('');
+  };
+
+  return { text, phone, breakdown, handleTextChange, handlePhoneChange, appendDigit, clear };
 }

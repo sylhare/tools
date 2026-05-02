@@ -31,6 +31,12 @@ export const tools: Tool[] = [
     link: '/measurement-converter',
   },
   {
+    title: 'Weight Converter',
+    description: 'Convert weights between metric and imperial units including grams, kilograms, ounces, and pounds.',
+    icon: '⚖️',
+    link: '/weight-converter',
+  },
+  {
     title: 'Time Converter',
     description: 'Convert time between seconds, minutes, hours, days, months, and years.',
     icon: '⏱️',
@@ -43,16 +49,16 @@ export const tools: Tool[] = [
     link: '/password-generator',
   },
   {
-    title: 'Badminton Manager',
-    description: 'Manage your badminton games, players, and tournaments.',
-    icon: '🏸',
-    link: '/badminton-manager',
-  },
-  {
     title: 'Phone Keypad Converter',
     description: 'Convert text to phone keypad sequences and back, like the classic T9 keyboard.',
     icon: '📱',
     link: '/phone-text-converter',
+  },
+  {
+    title: 'Badminton Manager',
+    description: 'Manage your badminton games, players, and tournaments.',
+    icon: '🏸',
+    link: '/badminton-manager',
   },
 ];
 

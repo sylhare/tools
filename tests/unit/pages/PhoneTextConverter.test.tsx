@@ -101,13 +101,110 @@ describe('PhoneTextConverter', () => {
     expect(phoneInput).toHaveValue('44 33 555 555 666');
   });
 
-  it('renders keypad reference with keys 2-9 and 0', () => {
+  it('renders keypad with keys 0-9 in phone layout', () => {
     renderPhoneTextConverter();
 
-    expect(screen.getByText('Keypad Reference')).toBeInTheDocument();
+    expect(screen.getByText('Keypad')).toBeInTheDocument();
+    for (const digit of ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) {
+      expect(screen.getByTestId(`keypad-${digit}`)).toBeInTheDocument();
+    }
     expect(screen.getByText('ABC')).toBeInTheDocument();
     expect(screen.getByText('PQRS')).toBeInTheDocument();
     expect(screen.getByText('WXYZ')).toBeInTheDocument();
     expect(screen.getByText('SPACE')).toBeInTheDocument();
+  });
+
+  it('appends digit to phone input when keypad key is clicked', () => {
+    renderPhoneTextConverter();
+
+    const phoneInput = screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)');
+    const textInput = screen.getByPlaceholderText('Enter text (e.g., HELLO)');
+
+    fireEvent.click(screen.getByTestId('keypad-4'));
+    fireEvent.click(screen.getByTestId('keypad-4'));
+    expect(phoneInput).toHaveValue('44');
+    expect(textInput).toHaveValue('H');
+  });
+
+  it('appends different digits to build a word', () => {
+    renderPhoneTextConverter();
+
+    const phoneInput = screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)');
+    const textInput = screen.getByPlaceholderText('Enter text (e.g., HELLO)');
+
+    fireEvent.click(screen.getByTestId('keypad-4'));
+    fireEvent.click(screen.getByTestId('keypad-4'));
+    fireEvent.click(screen.getByTestId('keypad-3'));
+    fireEvent.click(screen.getByTestId('keypad-3'));
+    expect(phoneInput).toHaveValue('4433');
+    expect(textInput).toHaveValue('HE');
+  });
+
+  it('appends 0 for space via keypad', () => {
+    renderPhoneTextConverter();
+
+    const phoneInput = screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)');
+    const textInput = screen.getByPlaceholderText('Enter text (e.g., HELLO)');
+
+    fireEvent.click(screen.getByTestId('keypad-2'));
+    fireEvent.click(screen.getByTestId('keypad-0'));
+    fireEvent.click(screen.getByTestId('keypad-2'));
+    fireEvent.click(screen.getByTestId('keypad-2'));
+    expect(phoneInput).toHaveValue('2022');
+    expect(textInput).toHaveValue('A B');
+  });
+
+  it('appends 1 when key 1 is clicked', () => {
+    renderPhoneTextConverter();
+
+    const phoneInput = screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)');
+
+    fireEvent.click(screen.getByTestId('keypad-1'));
+    expect(phoneInput).toHaveValue('1');
+  });
+
+  it('key 1 does not produce text but is still appended', () => {
+    renderPhoneTextConverter();
+
+    const phoneInput = screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)');
+    const textInput = screen.getByPlaceholderText('Enter text (e.g., HELLO)');
+
+    fireEvent.click(screen.getByTestId('keypad-1'));
+    fireEvent.click(screen.getByTestId('keypad-2'));
+    expect(phoneInput).toHaveValue('12');
+    expect(textInput).toHaveValue('A');
+  });
+
+  it('clear button resets both inputs', () => {
+    renderPhoneTextConverter();
+
+    const textInput = screen.getByPlaceholderText('Enter text (e.g., HELLO)');
+    const phoneInput = screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)');
+
+    fireEvent.change(textInput, { target: { value: 'HELLO' } });
+    expect(phoneInput).toHaveValue('44 33 555 555 666');
+
+    fireEvent.click(screen.getByTestId('clear-button'));
+    expect(textInput).toHaveValue('');
+    expect(phoneInput).toHaveValue('');
+    expect(screen.queryByText('Breakdown')).not.toBeInTheDocument();
+  });
+
+  it('clear button is disabled when both inputs are empty', () => {
+    renderPhoneTextConverter();
+
+    expect(screen.getByTestId('clear-button')).toBeDisabled();
+  });
+
+  it('clear button resets keypad input', () => {
+    renderPhoneTextConverter();
+
+    fireEvent.click(screen.getByTestId('keypad-4'));
+    fireEvent.click(screen.getByTestId('keypad-4'));
+    expect(screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)')).toHaveValue('44');
+
+    fireEvent.click(screen.getByTestId('clear-button'));
+    expect(screen.getByPlaceholderText('Enter sequences (e.g., 44 33 555 555 666)')).toHaveValue('');
+    expect(screen.getByPlaceholderText('Enter text (e.g., HELLO)')).toHaveValue('');
   });
 });
