@@ -35,6 +35,7 @@ function HexRgbConverter(): JSX.Element {
     r,
     g,
     b,
+    rgbInput,
     displayHex,
     displayRgb,
     handleHexChange,
@@ -42,6 +43,7 @@ function HexRgbConverter(): JSX.Element {
     handleGChange,
     handleBChange,
     hexToRgb,
+    handleRgbInputChange,
   } = useHexRgbConverter();
 
   const copyToClipboard = async (text: string): Promise<void> => {
@@ -156,6 +158,13 @@ function HexRgbConverter(): JSX.Element {
 
           <Flex direction="column" gap="2">
             <Text size="3" weight="bold">RGB Values</Text>
+            <TextField.Root
+              type="text"
+              placeholder="Paste rgb value (e.g., rgb(255, 87, 51))"
+              value={rgbInput}
+              onChange={handleRgbInputChange}
+              size="3"
+            />
             <Flex gap="2">
               <Flex direction="column" gap="1" style={{ flex: 1 }}>
                 <Text size="2" color="gray">Red</Text>
