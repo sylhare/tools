@@ -15,6 +15,7 @@ export type {
 
 export { UnitCategory } from './types';
 
+export { BaseConverter } from './BaseConverter';
 export { RatioConverter } from './RatioConverter';
 export { IntervalConverter } from './IntervalConverter';
 
