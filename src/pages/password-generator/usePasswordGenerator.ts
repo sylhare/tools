@@ -33,6 +33,24 @@ const UPPERCASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const LOWERCASE_CHARS = 'abcdefghijklmnopqrstuvwxyz';
 const NUMBER_CHARS = '0123456789';
 
+/**
+ * Uniform random integer in [0, max) from the CSPRNG, using rejection
+ * sampling to avoid modulo bias. Math.random() is not cryptographically
+ * secure and its state is recoverable from observed outputs.
+ * @param max - Exclusive upper bound (must be > 0)
+ * @returns Random integer in [0, max)
+ */
+function secureRandomInt(max: number): number {
+  const limit = Math.floor(0x100000000 / max) * max;
+  const buf = new Uint32Array(1);
+  let x: number;
+  do {
+    crypto.getRandomValues(buf);
+    x = buf[0];
+  } while (x >= limit);
+  return x % max;
+}
+
 export function usePasswordGenerator(): UsePasswordGeneratorReturn {
   const [password, setPassword] = useState<string>('');
   const [options, setOptions] = useState<PasswordOptions>({
@@ -104,20 +122,20 @@ export function usePasswordGenerator(): UsePasswordGeneratorReturn {
 
     if (options.includeUppercase) {
       charset += UPPERCASE_CHARS;
-      requiredChars.push(UPPERCASE_CHARS[Math.floor(Math.random() * UPPERCASE_CHARS.length)]);
+      requiredChars.push(UPPERCASE_CHARS[secureRandomInt(UPPERCASE_CHARS.length)]);
     }
     if (options.includeLowercase) {
       charset += LOWERCASE_CHARS;
-      requiredChars.push(LOWERCASE_CHARS[Math.floor(Math.random() * LOWERCASE_CHARS.length)]);
+      requiredChars.push(LOWERCASE_CHARS[secureRandomInt(LOWERCASE_CHARS.length)]);
     }
     if (options.includeNumbers) {
       charset += NUMBER_CHARS;
-      requiredChars.push(NUMBER_CHARS[Math.floor(Math.random() * NUMBER_CHARS.length)]);
+      requiredChars.push(NUMBER_CHARS[secureRandomInt(NUMBER_CHARS.length)]);
     }
     if (options.includeSpecialChars && options.selectedSpecialChars.size > 0) {
       const specialChars = Array.from(options.selectedSpecialChars).join('');
       charset += specialChars;
-      requiredChars.push(specialChars[Math.floor(Math.random() * specialChars.length)]);
+      requiredChars.push(specialChars[secureRandomInt(specialChars.length)]);
     }
 
     if (charset === '') {
@@ -125,19 +143,17 @@ export function usePasswordGenerator(): UsePasswordGeneratorReturn {
       return;
     }
 
-    // Generate random characters for the remaining length
     const remainingLength = Math.max(0, options.length - requiredChars.length);
     const randomChars: string[] = [];
 
     for (let i = 0; i < remainingLength; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
+      const randomIndex = secureRandomInt(charset.length);
       randomChars.push(charset[randomIndex]);
     }
 
-    // Combine required chars with random chars and shuffle
     const allChars = [...requiredChars, ...randomChars];
     for (let i = allChars.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = secureRandomInt(i + 1);
       [allChars[i], allChars[j]] = [allChars[j], allChars[i]];
     }
 
