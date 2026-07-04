@@ -311,6 +311,20 @@ export const timeUnits: Unit[] = [
 ];
 
 /**
+ * Format a numeric value with the given precision.
+ * Falls back to exponential notation for very small or very large magnitudes.
+ * Shared by RatioConverter and IntervalConverter.
+ */
+export function formatConvertedValue(value: number, decimals: number): string {
+  const magnitude = Math.abs(value);
+  if (value !== 0 && (magnitude < Math.pow(10, -decimals) || magnitude > Math.pow(10, 10))) {
+    return value.toExponential(decimals);
+  }
+
+  return value.toFixed(decimals);
+}
+
+/**
  * Get base unit for a category
  */
 export function getBaseUnit(category: UnitCategory): Unit {

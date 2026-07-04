@@ -5,6 +5,7 @@
  */
 
 import { Unit, IntervalConverterOptions } from './types';
+import { formatConvertedValue } from './units';
 
 export class IntervalConverter {
   private units: Map<string, Unit>;
@@ -59,17 +60,7 @@ export class IntervalConverter {
    * @returns Formatted string
    */
   formatValue(value: number, precision?: number): string {
-    const decimals = precision ?? this.defaultPrecision;
-
-    if (Math.abs(value) < Math.pow(10, -decimals) && value !== 0) {
-      return value.toExponential(decimals);
-    }
-
-    if (Math.abs(value) > Math.pow(10, 10)) {
-      return value.toExponential(decimals);
-    }
-
-    return value.toFixed(decimals);
+    return formatConvertedValue(value, precision ?? this.defaultPrecision);
   }
 
   /**
