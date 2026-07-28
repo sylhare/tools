@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Flex, Heading, Text, Card, TextField, Button, Grid } from '@radix-ui/themes';
 import { useConverter } from '../../utils/conversions';
 import { weightConverter, selectedUnits, unitConfig } from './config';

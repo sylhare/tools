@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Box, Flex } from '@radix-ui/themes';
 import Navigation from './Navigation';
 

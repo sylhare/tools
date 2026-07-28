@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Flex, Heading, Text, Card, TextField, Button, Checkbox, Slider, Box } from '@radix-ui/themes';
 import { usePasswordGenerator, ALL_SPECIAL_CHARS, COMMON_SPECIAL_CHARS } from './usePasswordGenerator';
 import { useEffect, useState } from 'react';

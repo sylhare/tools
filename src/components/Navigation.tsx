@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Flex, Link, Heading } from '@radix-ui/themes';
 

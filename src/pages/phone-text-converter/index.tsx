@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Flex, Heading, Text, Card, TextField, Grid, Button } from '@radix-ui/themes';
 import { useState, useEffect, useRef } from 'react';
 import { usePhoneTextConverter, KEYPAD } from './usePhoneTextConverter';
@@ -13,7 +14,7 @@ const KEYPAD_LAYOUT: ({ key: string; letters: string } | null)[] = [
 function PhoneTextConverter(): JSX.Element {
   const { text, phone, breakdown, handleTextChange, handlePhoneChange, appendDigit, clear } = usePhoneTextConverter();
   const [copied, setCopied] = useState(false);
-  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => () => clearTimeout(copyTimerRef.current), []);
 
