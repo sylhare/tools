@@ -10,12 +10,8 @@ export default defineConfig({
     include: ['tests/unit/**/*.{test,spec}.{ts,tsx}'],
     exclude: ['node_modules', 'dist', 'tests/e2e'],
     pool: 'threads',
-    poolOptions: {
-      threads: {
-        maxThreads: 4,
-        minThreads: 1,
-      },
-    },
+    maxWorkers: 4,
+    minWorkers: 1,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
