@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Flex, Heading, Text, Card } from '@radix-ui/themes';
 import ToolCard from '../components/ToolCard';
 import { tools } from '../config/tools';

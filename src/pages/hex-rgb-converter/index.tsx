@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { ChangeEvent } from 'react';
 import { Flex, Heading, Text, Card, TextField, Button } from '@radix-ui/themes';
 import { useHexRgbConverter } from './useHexRgbConverter';

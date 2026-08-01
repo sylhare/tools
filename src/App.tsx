@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Container, Box } from '@radix-ui/themes';
 import Layout from './components/Layout';

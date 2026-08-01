@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Flex, Heading, Text, Card } from '@radix-ui/themes';
 
 const BADMINTON_URL = 'https://sylhare.github.io/Badminton/';

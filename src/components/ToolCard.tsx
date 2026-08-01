@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Flex, Heading, Text, Card, Button } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
 
